@@ -7,5 +7,5 @@ package framework.model;
  * The web client of game helper.
  */
 public class WebClient {
-
+	// TODO
 }

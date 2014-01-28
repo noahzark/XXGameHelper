@@ -10,4 +10,5 @@ public class HelperMessenger {
 	public final static int VERSION = 1;
 	public final static String VERSIONSTRING = "1.0";
 
+	// TODO
 }
