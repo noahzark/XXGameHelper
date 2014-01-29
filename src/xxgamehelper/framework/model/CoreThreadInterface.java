@@ -1,4 +1,4 @@
-package framework.model;
+package xxgamehelper.framework.model;
 
 import org.apache.http.HttpEntity;
 

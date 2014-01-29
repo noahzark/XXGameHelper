@@ -1,4 +1,4 @@
-package framework.control;
+package xxgamehelper.framework.control;
 
 /***
  * The messenger between model and view

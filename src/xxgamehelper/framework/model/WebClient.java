@@ -1,4 +1,4 @@
-package framework.model;
+package xxgamehelper.framework.model;
 
 /***
  * The web client class
