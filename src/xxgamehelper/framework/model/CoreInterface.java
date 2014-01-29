@@ -24,11 +24,13 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param fileName A file to save those content.
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean postPage(String remoteAddress, HttpEntity httpEntity, String fileName);
+	abstract boolean postPage(String remoteAddress, HttpEntity entity, String fileName);
 	
 	/***
-	 * The method to clean tempoary files.
+	 * The method to clean temporary files.
+	 * @param workPath The work directory
+	 * @param fileTypes The types of file which needed to be cleaned
 	 */
-	abstract void clearFiles();
+	abstract void clearFiles(String workPath,String[] fileTypes);
 
 }

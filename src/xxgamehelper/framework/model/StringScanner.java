@@ -1,10 +1,10 @@
 package xxgamehelper.framework.model;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /***
  * A scanner to check a string in a file or get a string in special pattern.
@@ -14,16 +14,29 @@ import java.io.IOException;
 public class StringScanner {
 	
 	/***
-	 * Check if a key string is in a file.
+	 * Check if a key string is in a file(Default use UTF-8 char set to open it).
 	 * @param key The key String
 	 * @param fileName The name of target file
 	 * @return Null if the key is not found,
-	 * else return the line where the string first occured
+	 * else return the line where the string first occurred
 	 */
-	public static String findString(String key,String fileName) {
-		File f = new File(fileName);
+	public static String findString(String key, String fileName){
+		return StringScanner.findString(key, fileName, "UTF-8");
+	}
+	
+	/***
+	 * Check if a key string is in a file.
+	 * @param key The key String
+	 * @param fileName The name of target file
+	 * @param charsetName The charset used to open the file
+	 * @return Null if the key is not found,
+	 * else return the line where the string first occurred
+	 */
+	public static String findString(String key, String fileName, String charsetName) {
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(f));
+			InputStreamReader isr = new InputStreamReader(
+					new FileInputStream(fileName), charsetName);
+			BufferedReader br = new BufferedReader(isr);
 			String s;
 			while ((s = br.readLine())!=null){
 				if (s.contains(key)){

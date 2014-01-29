@@ -13,7 +13,7 @@ public abstract class CoreData {
 	/***
 	 * The messenger to output data.
 	 */
-	Messenger messenger;
+	protected Messenger messenger;
 
 	public void setMessenger(Messenger messenger) {
 		this.messenger = messenger;
@@ -32,4 +32,9 @@ public abstract class CoreData {
 	 * The host target.
 	 */
 	HttpHost host;
+
+	public void setHost(HttpHost host) {
+		this.host = host;
+	}
+	
 }

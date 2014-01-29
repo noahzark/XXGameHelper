@@ -1,14 +1,9 @@
 package xxgamehelper.framework.model;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.util.EntityUtils;
@@ -32,7 +27,6 @@ public abstract class Core extends CoreData implements CoreInterface{
 	}
 	
 	public boolean getPage(String remoteAddress, String fileName) {
-		HttpGet req = new HttpGet(remoteAddress);
 		if (this.messenger.isDebugMode())
 			this.messenger.println("Now loading:" + remoteAddress);
 		
@@ -42,24 +36,9 @@ public abstract class Core extends CoreData implements CoreInterface{
 		}
 		
 		HttpEntity entity = null;
+		HttpGet req = new HttpGet(remoteAddress);
 		try{
-			HttpResponse rsp = webclient.execute(host, req);
-			
-			entity = rsp.getEntity();
-			if (entity != null) {
-				Header[] headers = rsp.getHeaders("Content-Encoding");
-				InputStream is = null;
-				if (headers.length>0)
-					is = new GZIPInputStream(entity.getContent());
-				else
-					is = entity.getContent();
-				FileOutputStream fos = new FileOutputStream(new File(fileName));
-				byte[] b = new byte[Core.BUFFERSIZE];
-				int len = 0;
-				while((len=is.read(b))!=-1)
-					fos.write(b,0,len);
-				fos.close();
-			}
+			WebClient.sendGet(webclient, host, req, entity, fileName);
 		} catch(Exception e){
 			this.messenger.showError(e);
 			return false;
@@ -73,9 +52,7 @@ public abstract class Core extends CoreData implements CoreInterface{
 		return true;
 	}
 	
-	public boolean postPage(String remoteAddress, HttpEntity httpEntity, String fileName){
-		HttpPost req = new HttpPost(remoteAddress);
-		req.setEntity(httpEntity);
+	public boolean postPage(String remoteAddress, HttpEntity entity, String fileName){
 		if (this.messenger.isDebugMode())
 			this.messenger.println("Now loading:" + remoteAddress);
 
@@ -83,26 +60,10 @@ public abstract class Core extends CoreData implements CoreInterface{
 			this.messenger.showError("host is null");
 			return false;
 		}
-		
-		HttpEntity entity = null;
+
+		HttpPost req = new HttpPost(remoteAddress);
 		try{
-			HttpResponse rsp = webclient.execute(host, req);
-			
-			entity = rsp.getEntity();
-			if (entity != null) {
-				Header[] headers = rsp.getHeaders("Content-Encoding");
-				InputStream is = null;
-				if (headers.length>0)
-					is = new GZIPInputStream(entity.getContent());
-				else
-					is = entity.getContent();
-				FileOutputStream fos = new FileOutputStream(new File(fileName));
-				byte[] b = new byte[Core.BUFFERSIZE];
-				int len = 0;
-				while((len=is.read(b))!=-1)
-					fos.write(b,0,len);
-				fos.close();
-			}
+			WebClient.sendPost(webclient, host, req, entity, fileName);
 		} catch(Exception e){
 			this.messenger.showError(e);
 			return false;
@@ -116,4 +77,22 @@ public abstract class Core extends CoreData implements CoreInterface{
 		return true;
 	}
 
+	public void clearFiles(String workPath,String[] fileTypes) {
+		File f = new File(workPath);
+		for (String fileType : fileTypes){
+			final String tempStr = fileType;
+			FilenameFilter ff = new FilenameFilter(){
+				public boolean accept(File arg0, String filename) {
+					if (filename.toLowerCase().endsWith(tempStr))
+						return true;
+					else
+						return false;        
+				}
+			};
+			File[] files = f.listFiles(ff);
+			for (int i=0;i<files.length;i++)
+				files[i].delete();
+		}
+		
+	}
 }
