@@ -8,12 +8,22 @@ import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 
+import xxgamehelper.framework.control.Messenger;
+
 /***
  * Programs should use connection class to login to the server
  * and generate the web client.
  * @author LongFangzhou
  */
 public abstract class Connection extends ConnectionData implements ConnectionInterface{
+	
+	/***
+	 * The constructor to initialize with a messenger.
+	 * @param messenger The messenger to output messages
+	 */
+	public Connection(Messenger messenger){
+		this.setMessenger(messenger);
+	}
 	
 	/***
 	 * Use POST method to obtain web content.
@@ -29,13 +39,13 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 			this.webclient = new WebClient();
 			WebClient.sendPost(webclient, host, req, entity, fileName);
 		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+			this.messenger.showError(e);
 			return false;
 		} catch (ParseException e) {
-			e.printStackTrace();
+			this.messenger.showError(e);
 			return false;
 		} catch (IOException e) {
-			e.printStackTrace();
+			this.messenger.showError(e);
 			return false;
 		}
 		return true;
