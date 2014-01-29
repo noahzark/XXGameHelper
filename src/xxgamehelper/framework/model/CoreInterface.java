@@ -3,12 +3,11 @@ package xxgamehelper.framework.model;
 import org.apache.http.HttpEntity;
 
 /***
- * The interface of core class
+ * The core class should be runnable to improve stability and achieve multi-thread.
  * @author LongFangzhou
  * @version 0.1
- * The core class should be a thread to improve stability.
  */
-public abstract interface CoreThreadInterface extends Runnable {
+public abstract interface CoreInterface extends Runnable {
 
 	/***
 	 * Use GET method to obtain web content.

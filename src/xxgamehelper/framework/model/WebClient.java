@@ -1,11 +1,12 @@
 package xxgamehelper.framework.model;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+
 /***
- * The web client class
+ * The web client of game helper.
  * @author LongFangzhou
  * @version 0.1
- * The web client of game helper.
  */
-public class WebClient {
-	// TODO
+public class WebClient extends DefaultHttpClient{
+
 }

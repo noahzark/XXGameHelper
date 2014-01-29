@@ -1,9 +1,8 @@
 package customize;
 
 /***
- * Main test class
- * @author LongFangzhou
  * Use this class to test.
+ * @author LongFangzhou
  */
 public class TestMain {
 
