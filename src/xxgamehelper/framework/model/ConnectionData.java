@@ -20,7 +20,7 @@ public abstract class ConnectionData {
 	/***
 	 * The connection class should include a web client to transfer data.
 	 */
-	WebClient webclient;
+	protected WebClient webclient;
 	
 	/***
 	 * The method to get the web client generated.

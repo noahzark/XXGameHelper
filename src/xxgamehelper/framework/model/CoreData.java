@@ -22,7 +22,7 @@ public abstract class CoreData {
 	/***
 	 * The web client to transfer data.
 	 */
-	WebClient webclient;
+	protected WebClient webclient;
 	
 	public void setWebclient(WebClient webclient){
 		this.webclient = webclient;
@@ -31,7 +31,7 @@ public abstract class CoreData {
 	/***
 	 * The host target.
 	 */
-	HttpHost host;
+	protected HttpHost host;
 
 	public void setHost(HttpHost host) {
 		this.host = host;
