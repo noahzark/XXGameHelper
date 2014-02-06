@@ -1,11 +1,8 @@
 package xxgamehelper.framework.model;
 
-import java.io.IOException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
 import xxgamehelper.framework.control.Messenger;
@@ -18,11 +15,12 @@ import xxgamehelper.framework.control.Messenger;
 public abstract class Connection extends ConnectionData implements ConnectionInterface{
 	
 	/***
-	 * The constructor to initialize with a messenger.
+	 * The constructor to initialize with a messenger and a WebClient.
 	 * @param messenger The messenger to output messages
 	 */
-	public Connection(Messenger messenger){
+	public Connection(Messenger messenger, WebClient webclient){
 		this.setMessenger(messenger);
+		this.webclient = webclient;
 	}
 	
 	/***
@@ -35,19 +33,10 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 	 */
 	public boolean doPost(HttpHost host, HttpPost req,
 			HttpEntity entity, String fileName) {
-		try {
-			this.webclient = new WebClient();
-			WebClient.sendPost(webclient, host, req, entity, fileName);
-		} catch (ClientProtocolException e) {
-			this.messenger.showError(e);
-			return false;
-		} catch (ParseException e) {
-			this.messenger.showError(e);
-			return false;
-		} catch (IOException e) {
-			this.messenger.showError(e);
-			return false;
-		}
-		return true;
+		return this.webclient.sendPost(host, req, entity, fileName);
+	}
+	
+	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
+		return this.webclient.sendGet(host, req, fileName);
 	}
 }
