@@ -3,6 +3,8 @@ package xxgamehelper.framework.model;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Date;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -29,7 +31,8 @@ public abstract class Core extends CoreData implements CoreInterface{
 	
 	public boolean getPage(String remoteAddress, String fileName) {
 		if (this.messenger.isDebugMode())
-			this.messenger.println("Now loading:" + remoteAddress);
+			this.messenger.println((new Date()) + " Now loading:\n"
+					+ remoteAddress);
 		
 		if (this.host == null){
 			this.messenger.showError("host is null");
@@ -39,7 +42,7 @@ public abstract class Core extends CoreData implements CoreInterface{
 		HttpEntity entity = null;
 		HttpGet req = new HttpGet(remoteAddress);
 		try{
-			WebClient.sendGet(webclient, host, req, entity, fileName);
+			webclient.sendGet(host, req, fileName);
 		} catch(Exception e){
 			this.messenger.showError(e);
 			return false;
@@ -64,7 +67,7 @@ public abstract class Core extends CoreData implements CoreInterface{
 
 		HttpPost req = new HttpPost(remoteAddress);
 		try{
-			WebClient.sendPost(webclient, host, req, entity, fileName);
+			webclient.sendPost(host, req, entity, fileName);
 		} catch(Exception e){
 			this.messenger.showError(e);
 			return false;
