@@ -19,7 +19,7 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 	 * @param messenger The messenger to output messages
 	 */
 	public Connection(Messenger messenger, WebClient webclient){
-		this.setMessenger(messenger);
+		this.messenger = messenger;
 		this.webclient = webclient;
 	}
 	
@@ -36,7 +36,15 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 		return this.webclient.sendPost(host, req, entity, fileName);
 	}
 	
+	/***
+	 * Use GET method to obtain web content.
+	 * @param host Target host
+	 * @param req The request
+	 * @param fileName A file to save those content.
+	 * @return If the operation succeed, return true. Otherwise false.
+	 */
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
 		return this.webclient.sendGet(host, req, fileName);
 	}
+	
 }
