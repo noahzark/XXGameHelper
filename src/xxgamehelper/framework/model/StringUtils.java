@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author LongFangzhou
  * @author 1.1
  */
-public class StringScanner {
+public class StringUtils {
 	
 	/***
 	 * Check if a key string is in a file(Default use UTF-8 char set to open it).
@@ -22,7 +22,7 @@ public class StringScanner {
 	 * else return the line where the string first occurred
 	 */
 	public static String findString(String key, String fileName){
-		return StringScanner.findString(key, fileName, "UTF-8");
+		return StringUtils.findString(key, fileName, "UTF-8");
 	}
 	
 	/***
@@ -33,7 +33,7 @@ public class StringScanner {
 	 * @return A string array
 	 */
 	public static String[] findAllString(String key, String fileName) {
-		return StringScanner.findAllString(key, fileName, "UTF-8");
+		return StringUtils.findAllString(key, fileName, "UTF-8");
 	}
 	
 	/***
