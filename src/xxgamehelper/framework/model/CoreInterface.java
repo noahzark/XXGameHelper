@@ -10,6 +10,13 @@ import org.apache.http.HttpEntity;
 public abstract interface CoreInterface extends Runnable {
 
 	/***
+	 * Do some check or other operations before sending a request.
+	 * @param remoteAddress
+	 * @return True if checks passed, otherwise false
+	 */
+	abstract boolean preRequest(String remoteAddress);
+	
+	/***
 	 * Use GET method to obtain web content.
 	 * @param remoteAddress Remote net address.
 	 * @param fileName A file to save those content.
@@ -33,4 +40,13 @@ public abstract interface CoreInterface extends Runnable {
 	 */
 	abstract void clearFiles(String workPath,String[] fileTypes);
 
+	/***
+	 * The method to initialize the game runtime environment.
+	 */
+	abstract void initGame();
+	
+	/***
+	 * The method to run the game.
+	 */
+	abstract void runGame();
 }

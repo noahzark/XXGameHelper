@@ -2,14 +2,12 @@ package xxgamehelper.framework.model;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
-
 import xxgamehelper.framework.control.Messenger;
 
 /***
@@ -25,11 +23,12 @@ public abstract class Core extends CoreData implements CoreInterface{
 	 * @param messenger The messenger to output messages
 	 */
 	public Core(WebClient webclient, Messenger messenger) {
-		this.setWebclient(webclient);
-		this.setMessenger(messenger);
+		this.webclient = webclient;
+		this.messenger = messenger;
+		randomer = new Random();
 	}
 	
-	public boolean getPage(String remoteAddress, String fileName) {
+	public boolean preRequest(String remoteAddress) {
 		if (this.messenger.isDebugMode())
 			this.messenger.println((new Date()) + " Now loading:\n"
 					+ remoteAddress);
@@ -38,47 +37,23 @@ public abstract class Core extends CoreData implements CoreInterface{
 			this.messenger.showError("host is null");
 			return false;
 		}
-		
-		HttpEntity entity = null;
-		HttpGet req = new HttpGet(remoteAddress);
-		try{
-			webclient.sendGet(host, req, fileName);
-		} catch(Exception e){
-			this.messenger.showError(e);
-			return false;
-		} finally{
-			try {
-				if (entity!=null)
-					EntityUtils.consume(entity);
-			} catch (IOException e) {
-			}
-		}
 		return true;
 	}
 	
+	public boolean getPage(String remoteAddress, String fileName) {
+		if (this.preRequest(remoteAddress)){
+			HttpGet req = new HttpGet(remoteAddress);
+			return webclient.sendGet(host, req, fileName);
+		}
+		return false;
+	}
+	
 	public boolean postPage(String remoteAddress, HttpEntity entity, String fileName){
-		if (this.messenger.isDebugMode())
-			this.messenger.println("Now loading:" + remoteAddress);
-
-		if (this.host == null){
-			this.messenger.showError("host is null");
-			return false;
+		if (this.preRequest(remoteAddress)){
+			HttpPost req = new HttpPost(remoteAddress);
+			return webclient.sendPost(host, req, entity, fileName);
 		}
-
-		HttpPost req = new HttpPost(remoteAddress);
-		try{
-			webclient.sendPost(host, req, entity, fileName);
-		} catch(Exception e){
-			this.messenger.showError(e);
-			return false;
-		} finally{
-			try {
-				if (entity!=null)
-					EntityUtils.consume(entity);
-			} catch (IOException e) {
-			}
-		}
-		return true;
+		return false;
 	}
 
 	public void clearFiles(String workPath,String[] fileTypes) {
@@ -97,6 +72,13 @@ public abstract class Core extends CoreData implements CoreInterface{
 			for (int i=0;i<files.length;i++)
 				files[i].delete();
 		}
-		
+	}
+	
+	@Override
+	public void run() {
+		this.initGame();
+		while (!this.isExitFlag()){
+			this.runGame();
+		}
 	}
 }

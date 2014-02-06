@@ -1,5 +1,7 @@
 package xxgamehelper.framework.model;
 
+import java.util.Random;
+
 import org.apache.http.HttpHost;
 
 import xxgamehelper.framework.control.Messenger;
@@ -15,18 +17,10 @@ public abstract class CoreData {
 	 */
 	protected Messenger messenger;
 
-	public void setMessenger(Messenger messenger) {
-		this.messenger = messenger;
-	}
-
 	/***
 	 * The web client to transfer data.
 	 */
 	protected WebClient webclient;
-	
-	public void setWebclient(WebClient webclient){
-		this.webclient = webclient;
-	}
 	
 	/***
 	 * The host target.
@@ -37,4 +31,22 @@ public abstract class CoreData {
 		this.host = host;
 	}
 	
+	/**
+	 * Get whether if the game thread is about to exit.
+	 * @return the exitFlag
+	 */
+	public boolean isExitFlag() {
+		return exitFlag;
+	}
+
+	/**
+	 * @param exitFlag The exitFlag to set
+	 */
+	public void setExitFlag(boolean exitFlag) {
+		this.exitFlag = exitFlag;
+	}
+
+	private boolean exitFlag = false;
+	
+	protected Random randomer;
 }
