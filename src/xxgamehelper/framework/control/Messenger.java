@@ -7,7 +7,7 @@ import java.util.Date;
  * @author LongFangzhou
  * @version 0.1
  */
-public class Messenger extends MessengerData implements MessengerInterface{
+public abstract class Messenger extends MessengerData implements MessengerInterface{
 	public final static int VERSION = 1;
 	public final static String VERSIONSTRING = "1.0";
 
