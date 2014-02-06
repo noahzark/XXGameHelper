@@ -10,6 +10,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
@@ -42,6 +43,24 @@ public abstract class WebClient extends DefaultHttpClient {
 	public WebClient(Messenger messenger) {
 		this.messenger = messenger;
 	}
+	
+	/***
+	 * Send a request to the server and get response.
+	 * @param host The target host
+	 * @param req A HttpGet/Post request
+	 * @return The HttpResponse
+	 */
+	public HttpResponse sendRequest(HttpHost host, HttpRequestBase req) {
+		HttpResponse rsp = null;
+		try {
+			rsp = this.execute(host, req);
+			this.lastRsp = rsp;
+		} catch (IllegalStateException | IOException e) {
+			this.lastRsp = null;
+			this.messenger.showError(e);
+		}
+		return rsp;
+	}
 
 	/***
 	 * A method to use a web client to send GET requests 
@@ -52,17 +71,16 @@ public abstract class WebClient extends DefaultHttpClient {
 	 */
 	public boolean sendGet(HttpHost host, HttpGet req,
 			String fileName) {
+		HttpResponse rsp = this.sendRequest(host, req);
+		this.lastRsp = rsp;
 		try {
-			HttpResponse rsp = this.execute(host, req);
-			this.lastRsp = rsp;
 			if (this.saveRspToFile(rsp, fileName))
 				return true;
-		} catch (IllegalStateException | IOException e) {
+		} catch (IOException e) {
 			this.lastRsp = null;
 			this.messenger.showError(e);
-			return false;
 		}
-		return true;
+		return false;
 	}
 	
 	/***
@@ -76,13 +94,12 @@ public abstract class WebClient extends DefaultHttpClient {
 	public boolean sendPost(HttpHost host, HttpPost req,
 			HttpEntity entity, String fileName) {
 		req.setEntity(entity);
-		entity = null;
+		HttpResponse rsp = this.sendRequest(host, req);
+		this.lastRsp = rsp;
 		try {
-			HttpResponse rsp = this.execute(host, req);
-			this.lastRsp = rsp;
 			if (this.saveRspToFile(rsp, fileName))
 				return true;
-		} catch (IllegalStateException | IOException e) {
+		} catch (IOException e) {
 			this.lastRsp = null;
 			this.messenger.showError(e);
 		}
