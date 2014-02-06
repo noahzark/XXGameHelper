@@ -36,4 +36,16 @@ public interface MessengerInterface {
 	 */
 	void showError(Exception e);
 	
+	/***
+	 * Pause the game thread for several seconds.
+	 * @param millis
+	 * @throws InterruptedException
+	 */
+	void pauseGame(long t) throws InterruptedException;
+	
+	/***
+	 * Continue the game thread.
+	 */
+	void continueGame();
+	
 }

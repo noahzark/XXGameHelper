@@ -5,7 +5,7 @@ import java.util.Date;
 /***
  * All models should use this messenger to operate on views.
  * @author LongFangzhou
- * @version 0.1
+ * @version 0.2
  */
 public abstract class Messenger extends MessengerData implements MessengerInterface{
 	public final static int VERSION = 1;
@@ -35,5 +35,14 @@ public abstract class Messenger extends MessengerData implements MessengerInterf
 	public void showWarning(String content) {
 		println("Warning: " + content
 				+ ", please try again later or contact with the author");
+	}
+	
+	public void pauseGame(long t) throws InterruptedException{
+		this.println("The game was paused for "+t+" second(s).");
+		Thread.sleep(t*1000L);
+	}
+	
+	public void continueGame(){
+		this.gameThread.interrupt();
 	}
 }

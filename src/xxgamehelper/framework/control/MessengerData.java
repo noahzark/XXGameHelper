@@ -38,4 +38,20 @@ public abstract class MessengerData {
 	public void setDebugMode(boolean debugMode) {
 		this.debugMode = debugMode;
 	}
+	
+	protected Thread gameThread;
+	
+	/**
+	 * @return the gameThread
+	 */
+	public Thread getGameThread() {
+		return gameThread;
+	}
+
+	/**
+	 * @param gameThread the gameThread to set
+	 */
+	public void setGameThread(Thread gameThread) {
+		this.gameThread = gameThread;
+	}
 }
