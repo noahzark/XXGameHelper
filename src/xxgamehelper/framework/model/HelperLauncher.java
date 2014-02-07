@@ -30,9 +30,9 @@ public class HelperLauncher {
 	/***
 	 * Launch the helper with a messenger, a helper factory,
 	 * and a checker to ensure the helper thread keep running.
-	 * @param messenger
-	 * @param factory
-	 * @param checkInterval
+	 * @param messenger The helper messenger
+	 * @param factory The helper factory
+	 * @param checkInterval The interval time during the check break (seconds)
 	 */
 	public static void launchWithCheker(Messenger messenger, HelperFactory factory,
 			int checkInterval) {
