@@ -11,8 +11,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.cookie.CookieOrigin;
@@ -63,37 +61,14 @@ public abstract class WebClient extends DefaultHttpClient {
 	}
 
 	/***
-	 * A method to use a web client to send GET requests 
+	 * A method to use a web client to send requests 
 	 * and save content to a file.
 	 * @param host The host
-	 * @param req The GET request
+	 * @param req The request
 	 * @param fileName The name of file which saves contents
 	 */
-	public boolean sendGet(HttpHost host, HttpGet req,
+	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
 			String fileName) {
-		HttpResponse rsp = this.sendRequest(host, req);
-		this.lastRsp = rsp;
-		try {
-			if (this.saveRspToFile(rsp, fileName))
-				return true;
-		} catch (IOException e) {
-			this.lastRsp = null;
-			this.messenger.showError(e);
-		}
-		return false;
-	}
-	
-	/***
-	 * A method to use a web client to send POST requests 
-	 * and save content to a file.
-	 * @param host The host
-	 * @param req The POST request
-	 * @param entity The request entity
-	 * @param fileName The name of file which saves contents
-	 */
-	public boolean sendPost(HttpHost host, HttpPost req,
-			HttpEntity entity, String fileName) {
-		req.setEntity(entity);
 		HttpResponse rsp = this.sendRequest(host, req);
 		this.lastRsp = rsp;
 		try {
@@ -139,7 +114,10 @@ public abstract class WebClient extends DefaultHttpClient {
 			if (this.messenger.isDebugMode())
 				this.showLastResponseSummary();
 		}
-		return true;
+		if (rsp.getStatusLine().getStatusCode()<400)
+			return true;
+		else
+			return false;
 	}
 	
 	/**

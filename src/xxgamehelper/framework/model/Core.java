@@ -43,7 +43,7 @@ public abstract class Core extends CoreData implements CoreInterface{
 	public boolean getPage(String remoteAddress, String fileName) {
 		if (this.preRequest(remoteAddress)){
 			HttpGet req = new HttpGet(remoteAddress);
-			return webclient.sendGet(host, req, fileName);
+			return webclient.saveRequestToFile(host, req, fileName);
 		}
 		return false;
 	}
@@ -51,7 +51,8 @@ public abstract class Core extends CoreData implements CoreInterface{
 	public boolean postPage(String remoteAddress, HttpEntity entity, String fileName){
 		if (this.preRequest(remoteAddress)){
 			HttpPost req = new HttpPost(remoteAddress);
-			return webclient.sendPost(host, req, entity, fileName);
+			req.setEntity(entity);
+			return webclient.saveRequestToFile(host, req, fileName);
 		}
 		return false;
 	}

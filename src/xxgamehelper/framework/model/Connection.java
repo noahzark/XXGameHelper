@@ -33,7 +33,8 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 	 */
 	public boolean doPost(HttpHost host, HttpPost req,
 			HttpEntity entity, String fileName) {
-		return this.webclient.sendPost(host, req, entity, fileName);
+		req.setEntity(entity);
+		return this.webclient.saveRequestToFile(host, req, fileName);
 	}
 	
 	/***
@@ -44,7 +45,7 @@ public abstract class Connection extends ConnectionData implements ConnectionInt
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
-		return this.webclient.sendGet(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req, fileName);
 	}
 	
 }
