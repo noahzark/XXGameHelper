@@ -90,8 +90,11 @@ public class StringUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String[] strList = null;
+		String[] strList = new String[list.size()];
 		strList = list.toArray(strList);
+		//You can also use
+		//String[] strList = (String[])list.toArray(new String[0]);
+		//but it will cost additional time and space to new String[0]
 		return strList;
 	}
 	
