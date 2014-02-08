@@ -77,9 +77,13 @@ public abstract class DefaultCore extends Core {
 	
 	@Override
 	public void run() {
-		this.initGame();
-		while (!this.isExitFlag()){
-			this.runGame();
+		try {
+			this.initGame();
+			while (!this.isExitFlag()){
+				this.runGame();
+			}
+		} catch (Exception e) {
+			this.messenger.showError(e);
 		}
 	}
 }
