@@ -5,20 +5,20 @@ import org.apache.http.HttpHost;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.DefaultMessenger;
 
 /***
  * Programs should use connection class to login to the server
  * and generate the web client.
  * @author LongFangzhou
  */
-public abstract class Connection extends ConnectionData implements ConnectionInterface{
+public abstract class DefaultConnection extends ConnectionData implements ConnectionInterface{
 	
 	/***
 	 * The constructor to initialize with a messenger and a WebClient.
 	 * @param messenger The messenger to output messages
 	 */
-	public Connection(Messenger messenger, WebClient webclient){
+	public DefaultConnection(DefaultMessenger messenger, WebClient webclient){
 		this.messenger = messenger;
 		this.webclient = webclient;
 	}
