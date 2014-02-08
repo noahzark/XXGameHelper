@@ -46,7 +46,14 @@ public abstract class CoreData {
 		this.exitFlag = exitFlag;
 	}
 
+	/***
+	 * Tell whether the thread should exit
+	 */
 	private boolean exitFlag = false;
 	
+	/***
+	 * A randomizer to generate random numbers
+	 */
 	protected Random randomer;
+	
 }
