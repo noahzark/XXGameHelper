@@ -39,15 +39,18 @@ public class HelperLauncher {
 		Thread coreThread = null;
 		while (true){
 			coreThread = HelperLauncher.launch(messenger, factory);
+			long verifyToken = messenger.getVerifyToken();
 			try {
 				Thread.sleep(checkInterval*1000); // Take a break to wait core thread to run
-				while(coreThread!=null) {
-					messenger.println("The thread is alive.");
+				while(coreThread != null && verifyToken != messenger.getVerifyToken()) {
+					verifyToken = messenger.getVerifyToken();// Update the verify token
+					messenger.println("The thread is alive, verify token:"+verifyToken);
 					Thread.sleep(checkInterval*1000);
 					if (!coreThread.isAlive())
 						coreThread = null;
 				}
 				messenger.println("The thread is dead, try to restart.");
+				coreThread.interrupt();
 			} catch (InterruptedException e) {
 				messenger.showError(e);
 			}

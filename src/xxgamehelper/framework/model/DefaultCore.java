@@ -75,12 +75,17 @@ public abstract class DefaultCore extends Core {
 		}
 	}
 	
+	public void updateToken() {
+		this.messenger.setVerifyToken(this.randomer.nextLong());
+	}
+	
 	@Override
 	public void run() {
 		try {
 			this.initGame();
 			while (!this.isExitFlag()){
 				this.runGame();
+				this.updateToken();
 			}
 		} catch (Exception e) {
 			this.messenger.showError(e);
