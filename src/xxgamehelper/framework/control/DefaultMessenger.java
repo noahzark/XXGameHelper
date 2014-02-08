@@ -21,7 +21,7 @@ public abstract class DefaultMessenger extends Messenger {
 	
 	public void showError(String errorCause){
 		println("Error: " + errorCause
-				+ ", please try again later or contact with the author");
+				+ ", please try again later or contact with the author.\n");
 	}
 	
 	public void showError(Exception e){
@@ -34,11 +34,11 @@ public abstract class DefaultMessenger extends Messenger {
 
 	public void showWarning(String content) {
 		println("Warning: " + content
-				+ ", please try again later or contact with the author");
+				+ ", please try again later or contact with the author.\n");
 	}
 	
 	public void pauseGame(long t) throws InterruptedException{
-		this.println("The game was paused for "+t+" second(s).");
+		this.println("The game was paused for "+t+" second(s).\n");
 		Thread.sleep(t*1000L);
 	}
 	
