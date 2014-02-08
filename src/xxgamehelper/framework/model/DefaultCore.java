@@ -16,7 +16,6 @@ import xxgamehelper.framework.control.Messenger;
  * @version 0.3
  */
 public abstract class DefaultCore extends Core {
-	public static final int BUFFERSIZE = 8192;
 
 	/***
 	 * The constructor to initialize with a web client and a messenger.
