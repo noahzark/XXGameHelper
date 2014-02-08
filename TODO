@@ -1,3 +1,0 @@
-1. The helper should provide a graphic user interface.
-2. The helper should have the ability to be deploy and running on a web server like tomcat.
-3. The helper should use log4j to output logs.
