@@ -3,11 +3,11 @@ package xxgamehelper.framework.control;
 import java.util.Date;
 
 /***
- * All models should use this messenger to operate on views.
+ * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.2
+ * @version 0.3
  */
-public abstract class DefaultMessenger extends MessengerData implements MessengerInterface{
+public abstract class DefaultMessenger extends Messenger {
 	public final static int VERSION = 1;
 	public final static String VERSIONSTRING = "1.0";
 
