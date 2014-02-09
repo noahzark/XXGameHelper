@@ -50,7 +50,8 @@ public class HelperLauncher {
 						coreThread = null;
 				}
 				messenger.println("The thread is dead, try to restart.");
-				coreThread.interrupt();
+				if (coreThread!=null)
+					coreThread.interrupt();
 			} catch (InterruptedException e) {
 				messenger.showError(e);
 			}
