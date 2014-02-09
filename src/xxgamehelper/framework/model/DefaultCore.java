@@ -1,7 +1,5 @@
 package xxgamehelper.framework.model;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.Random;
 
@@ -56,27 +54,24 @@ public abstract class DefaultCore extends Core {
 		}
 		return false;
 	}
-
-	public void clearFiles(String workPath,String[] fileTypes) {
-		File f = new File(workPath);
-		for (String fileType : fileTypes){
-			final String tempStr = fileType;
-			FilenameFilter ff = new FilenameFilter(){
-				public boolean accept(File arg0, String filename) {
-					if (filename.toLowerCase().endsWith(tempStr))
-						return true;
-					else
-						return false;        
-				}
-			};
-			File[] files = f.listFiles(ff);
-			for (int i=0;i<files.length;i++)
-				files[i].delete();
-		}
-	}
 	
 	public void updateToken() {
 		this.messenger.setVerifyToken(this.randomer.nextLong());
+	}
+	
+	private long generateRestTime(int basicRestTime, int extraRestTime){
+		basicRestTime += randomer.nextInt(extraRestTime);
+		return basicRestTime;
+	}
+	
+	public void rest() {
+		try {
+			long t = 0;
+			t = this.generateRestTime(20,20);
+			this.messenger.pauseGame(t);
+		} catch (InterruptedException e) {
+			this.messenger.println("The rest is interrupted");
+		}
 	}
 	
 	@Override
@@ -84,8 +79,10 @@ public abstract class DefaultCore extends Core {
 		try {
 			this.initGame();
 			while (!this.isExitFlag()){
-				this.runGame();
 				this.updateToken();
+				this.runGame();
+				this.rest();
+				this.cleanFiles();
 			}
 		} catch (Exception e) {
 			this.messenger.showError(e);
