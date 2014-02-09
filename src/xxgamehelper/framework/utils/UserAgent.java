@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.utils;
 
 /***
  * Some common browser UA strings.

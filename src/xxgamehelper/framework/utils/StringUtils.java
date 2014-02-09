@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.utils;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
