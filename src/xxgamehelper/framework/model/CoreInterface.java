@@ -5,7 +5,7 @@ import org.apache.http.HttpEntity;
 /***
  * The core class should be runnable to improve stability and achieve multi-thread.
  * @author LongFangzhou
- * @version 0.1
+ * @version 0.2
  */
 public abstract interface CoreInterface extends Runnable {
 
@@ -34,11 +34,9 @@ public abstract interface CoreInterface extends Runnable {
 	abstract boolean postPage(String remoteAddress, HttpEntity entity, String fileName);
 	
 	/***
-	 * The method to clean temporary files.
-	 * @param workPath The work directory
-	 * @param fileTypes The types of file which needed to be cleaned
+	 * The method to clean temporary work files. You can use utils.FileUtils for help.
 	 */
-	abstract void clearFiles(String workPath,String[] fileTypes);
+	abstract void cleanFiles();
 
 	/***
 	 * The method to initialize the game runtime environment.
@@ -54,4 +52,9 @@ public abstract interface CoreInterface extends Runnable {
 	 * Update the verify token in messenger to show the thread is alive.
 	 */
 	abstract void updateToken();
+	
+	/***
+	 * Take a rest after operations.
+	 */
+	abstract void rest();
 }
