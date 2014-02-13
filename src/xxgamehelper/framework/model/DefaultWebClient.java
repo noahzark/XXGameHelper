@@ -35,8 +35,10 @@ public class DefaultWebClient extends WebClient {
 	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
 			String fileName) {
 		HttpResponse rsp = this.sendRequest(host, req);
-		if (rsp.getStatusLine().getStatusCode()>400)
+		if (rsp==null || rsp.getStatusLine().getStatusCode()>=400) {
+			req.releaseConnection();
 			return false;
+		}
 		this.lastRsp = rsp;
 		try {
 			if (FileUtils.saveRspToFile(rsp, fileName)) {
