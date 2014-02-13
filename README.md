@@ -1,4 +1,4 @@
-What's this?
+About
 ------------------------
 A simple game helper framework.
 
