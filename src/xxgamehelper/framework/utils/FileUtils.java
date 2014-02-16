@@ -60,26 +60,36 @@ public class FileUtils {
 	 * @throws IOException 
 	 */
 	public static boolean saveRspToFile(HttpResponse rsp, String fileName) throws IOException{
-		HttpEntity entity = rsp.getEntity();
-		if (entity != null) {
-			Header[] coding = rsp.getHeaders("Content-Encoding");
-			InputStream is = null;
-			try {
-				if (coding.length>0)
-					is = new GZIPInputStream(entity.getContent());
-				else
-					is = entity.getContent();
+		if (rsp.getStatusLine().getStatusCode() == 302) {
+			Header[] header = rsp.getHeaders("Location");
+			if (header.length>0) {
 				FileOutputStream fos = new FileOutputStream(new File(fileName));
-				byte[] b = new byte[Core.BUFFERSIZE];
-				int len = 0;
-				while((len=is.read(b))!=-1)
-					fos.write(b,0,len);
-				fos.close();
-			} catch (IllegalStateException | IOException e) {
-//				this.messenger.showError(e);
-				return false;
-			} finally {
+				fos.write(header[0].getValue().getBytes());
+				HttpEntity entity = rsp.getEntity();
 				EntityUtils.consume(entity);
+			}
+		} else {
+			HttpEntity entity = rsp.getEntity();
+			if (entity != null) {
+				Header[] coding = rsp.getHeaders("Content-Encoding");
+				InputStream is = null;
+				try {
+					if (coding.length>0)
+						is = new GZIPInputStream(entity.getContent());
+					else
+						is = entity.getContent();
+					FileOutputStream fos = new FileOutputStream(new File(fileName));
+					byte[] b = new byte[Core.BUFFERSIZE];
+					int len = 0;
+					while((len=is.read(b))!=-1)
+						fos.write(b,0,len);
+					fos.close();
+				} catch (IllegalStateException | IOException e) {
+//					this.messenger.showError(e);
+					return false;
+				} finally {
+					EntityUtils.consume(entity);
+				}
 			}
 		}
 		return true;
