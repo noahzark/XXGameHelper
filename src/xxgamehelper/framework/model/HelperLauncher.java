@@ -1,6 +1,7 @@
 package xxgamehelper.framework.model;
 
 import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.utils.FileUtils;
 
 /***
  * The helper launcher contains a static method to launch the helper.
@@ -15,6 +16,7 @@ public class HelperLauncher {
 	 * @return The helper thread
 	 */
 	public static Thread launch(Messenger messenger, HelperFactory factory) {
+		FileUtils.createDirectory(messenger.workPath);
 		Thread coreThread = null;
 		Connection tscon = factory.buildConnection(messenger);
 		if (tscon.connect())

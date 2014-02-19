@@ -94,5 +94,18 @@ public class FileUtils {
 		}
 		return true;
 	}
+	
+	/***
+	 * Check if a path is exists, if not will create it.
+	 * @param path The target directory path
+	 * @return True if the directory created succeed, false if the directory is already existed.
+	 */
+	public static boolean createDirectory(String path) {
+		File dir = new File(path);
+		if (dir.exists())
+			return false;
+		dir.mkdirs();
+		return true;
+	}
 
 }
