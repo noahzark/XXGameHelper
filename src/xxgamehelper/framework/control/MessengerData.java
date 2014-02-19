@@ -2,6 +2,9 @@ package xxgamehelper.framework.control;
 
 import java.util.TreeMap;
 
+import xxgamehelper.framework.model.HelperFactory;
+import xxgamehelper.framework.model.WebClient;
+
 /***
  * The messenger class attributes.
  * @author LongFangzhou
@@ -11,14 +14,31 @@ public abstract class MessengerData {
 	/***
 	 * Default messenger data constructor with some initial values.
 	 */
-	public MessengerData() {
+	public MessengerData(HelperFactory helperFactory) {
 		this.workPath = "work";
 		this.betaMode = false;
 		this.debugMode = false;
 		this.helperConfig = new TreeMap<String, String>();
 		this.gameConfig = new TreeMap<String, String>();
+		this.helperFactory = helperFactory;
 	}
 	
+	private WebClient webClient;
+	
+	/**
+	 * @return the webClient
+	 */
+	public WebClient getWebClient() {
+		return webClient;
+	}
+
+	/**
+	 * @param webClient the webClient to set
+	 */
+	public void setWebClient(WebClient webClient) {
+		this.webClient = webClient;
+	}
+
 	/***
 	 * The program work path.
 	 */
@@ -134,6 +154,18 @@ public abstract class MessengerData {
 	 */
 	public String getGameConfig(String key) {
 		return gameConfig.get(key);
+	}
+	
+	/***
+	 * The factory to build connections and cores.
+	 */
+	private HelperFactory helperFactory;
+	
+	/**
+	 * @return the helperFactory
+	 */
+	public HelperFactory getHelperFactory() {
+		return helperFactory;
 	}
 	
 }

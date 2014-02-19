@@ -2,12 +2,20 @@ package xxgamehelper.framework.control;
 
 import java.util.Date;
 
+import xxgamehelper.framework.model.HelperFactory;
+
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
  * @version 0.3
  */
-public abstract class DefaultMessenger extends Messenger {
+public class DefaultMessenger extends Messenger {
+	
+	public DefaultMessenger(HelperFactory helperFactory) {
+		super(helperFactory);
+		// TODO Auto-generated constructor stub
+	}
+
 	public final static int VERSION = 1;
 	public final static String VERSIONSTRING = "1.0";
 
