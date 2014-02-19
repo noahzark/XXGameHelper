@@ -18,12 +18,4 @@ public abstract class ConnectionData {
 	 */
 	protected WebClient webclient;
 	
-	/***
-	 * The method to get the web client generated.
-	 * @return The generated web client
-	 */
-	public WebClient getClient(){
-		return webclient;
-	}
-	
 }

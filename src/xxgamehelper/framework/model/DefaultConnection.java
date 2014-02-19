@@ -23,6 +23,15 @@ public abstract class DefaultConnection extends Connection {
 		this.webclient = webclient;
 	}
 	
+	public boolean check() {
+		this.saveConnection();
+		return true;
+	}
+	
+	public void saveConnection() {
+		this.messenger.setWebClient(this.webclient);
+	}
+	
 	/***
 	 * Use POST method to obtain web content.
 	 * @param host Target host

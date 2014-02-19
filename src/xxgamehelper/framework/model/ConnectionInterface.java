@@ -13,9 +13,14 @@ public abstract interface ConnectionInterface {
 	public boolean connect();
 	
 	/***
-	 * Check the connection
+	 * Check and save the connection
 	 * @return True while connection is right, otherwise false.
 	 */
 	public boolean check();
+	
+	/***
+	 * Save the connection to messenger.
+	 */
+	public void saveConnection();
 	
 }
