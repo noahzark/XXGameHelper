@@ -11,20 +11,20 @@ public abstract class DefaultMessenger extends Messenger {
 	public final static int VERSION = 1;
 	public final static String VERSIONSTRING = "1.0";
 
-	public void println(String str){
+	public void println(String str) {
 		this.print(str + "\n");
 	}
 	
-	public void print(String str){
+	public void print(String str) {
 		System.out.print(str);
 	}
 	
-	public void showError(String errorCause){
+	public void showError(String errorCause) {
 		println("Error: " + errorCause
 				+ ", please try again later or contact with the author.\n");
 	}
 	
-	public void showError(Exception e){
+	public void showError(Exception e) {
 		if (this.isDebugMode()){
 			println(new Date()+"");
 			e.printStackTrace();
@@ -42,7 +42,22 @@ public abstract class DefaultMessenger extends Messenger {
 		Thread.sleep(t*1000L);
 	}
 	
-	public void continueGame(){
+	public void continueGame() {
 		this.gameThread.interrupt();
+	}
+	
+	public boolean isGameAlive() {
+		if (this.gameThread!=null)
+			if (this.gameThread.isAlive())
+				return true;
+		return false;
+	}
+	
+	public void releaseGameThread() {
+		if (this.gameThread!=null) {
+			this.gameThread.interrupt();
+			this.gameThread.interrupt();
+			this.gameThread = null;
+		}
 	}
 }
