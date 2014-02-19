@@ -45,6 +45,10 @@ public class DefaultMessenger extends Messenger {
 				+ ", please try again later or contact with the author.\n");
 	}
 	
+	public void startGame() {
+		this.gameThread.start();
+	}
+	
 	public void pauseGame(long t) throws InterruptedException{
 		this.println("The game was paused for "+t+" second(s).\n");
 		Thread.sleep(t*1000L);
