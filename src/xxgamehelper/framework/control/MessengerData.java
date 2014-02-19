@@ -6,6 +6,11 @@ package xxgamehelper.framework.control;
  */
 public abstract class MessengerData {
 	/***
+	 * The program work path.
+	 */
+	public String workPath = "work";
+	
+	/***
 	 * For beta tests or premium uses.
 	 */
 	private boolean betaMode = false;
