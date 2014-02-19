@@ -15,18 +15,16 @@ public class HelperLauncher {
 	 * @param factory The helper factory
 	 * @return The helper thread
 	 */
-	public static Thread launch(Messenger messenger, HelperFactory factory) {
+	public static void launch(Messenger messenger) {
 		FileUtils.createDirectory(messenger.workPath);
-		Thread coreThread = null;
-		Connection tscon = factory.buildConnection(messenger);
+		messenger.setGameThread(null);
+		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		if (tscon.connect())
 			if (tscon.check()){
-				Core core = factory.buildCore(tscon.getClient(), messenger);
-				coreThread = new Thread(core);
-				messenger.setGameThread(coreThread);
-				coreThread.start();
+				Core core = messenger.getHelperFactory().buildCore(messenger);
+				messenger.setGameThread(new Thread(core));
+				messenger.startGame();
 			}
-		return coreThread;
 	}
 	
 	/***
@@ -36,24 +34,20 @@ public class HelperLauncher {
 	 * @param factory The helper factory
 	 * @param checkInterval The interval time during the check break (seconds)
 	 */
-	public static void launchWithCheker(Messenger messenger, HelperFactory factory,
-			int checkInterval) {
-		Thread coreThread = null;
+	public static void launchWithCheker(Messenger messenger, int checkInterval) {
+		messenger.releaseGameThread();
 		while (true){
-			coreThread = HelperLauncher.launch(messenger, factory);
+			HelperLauncher.launch(messenger);
 			long verifyToken = messenger.getVerifyToken();
 			try {
 				Thread.sleep(checkInterval*1000); // Take a break to wait core thread to run
-				while(coreThread != null && verifyToken != messenger.getVerifyToken()) {
+				while(messenger.isGameAlive() && verifyToken != messenger.getVerifyToken()) {
 					verifyToken = messenger.getVerifyToken();// Update the verify token
 					messenger.println("The thread is alive, verify token:"+verifyToken);
-					Thread.sleep(checkInterval*1000);
-					if (!coreThread.isAlive())
-						coreThread = null;
+					Thread.sleep(checkInterval*1000);						
 				}
 				messenger.println("The thread is dead, try to restart.");
-				if (coreThread!=null)
-					coreThread.interrupt();
+				messenger.releaseGameThread();
 			} catch (InterruptedException e) {
 				messenger.showError(e);
 			}
