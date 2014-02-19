@@ -1,6 +1,5 @@
 package xxgamehelper.framework.model;
 
-import java.util.Date;
 import java.util.Random;
 
 import org.apache.http.HttpEntity;
@@ -27,10 +26,6 @@ public abstract class DefaultCore extends Core {
 	}
 	
 	public boolean preRequest(String remoteAddress) {
-		if (this.messenger.isDebugMode())
-			this.messenger.println((new Date()) + " Now loading:\n"
-					+ remoteAddress);
-		
 		if (this.host == null){
 			this.messenger.showError("host is null");
 			return false;
@@ -67,7 +62,7 @@ public abstract class DefaultCore extends Core {
 	public void rest() {
 		try {
 			long t = 0;
-			t = this.generateRestTime(20,20);
+			t = this.generateRestTime(5,5);
 			this.messenger.pauseGame(t);
 		} catch (InterruptedException e) {
 			this.messenger.println("The rest is interrupted");
@@ -81,7 +76,8 @@ public abstract class DefaultCore extends Core {
 			while (!this.isExitFlag()){
 				this.updateToken();
 				this.runGame();
-				this.rest();
+				if (!this.isExitFlag())
+					this.rest();
 				this.cleanFiles();
 			}
 		} catch (Exception e) {
