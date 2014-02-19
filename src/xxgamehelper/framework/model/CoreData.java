@@ -12,6 +12,12 @@ import xxgamehelper.framework.control.Messenger;
  */
 public abstract class CoreData {
 	
+	public CoreData(Messenger messenger) {
+		this.messenger = messenger;
+		this.webclient = messenger.getWebClient();
+		this.exitFlag = false;
+	}
+	
 	/***
 	 * The messenger to output data.
 	 */
@@ -49,7 +55,7 @@ public abstract class CoreData {
 	/***
 	 * Tell whether the thread should exit
 	 */
-	private boolean exitFlag = false;
+	private boolean exitFlag;
 	
 	/***
 	 * A randomizer to generate random numbers
