@@ -11,6 +11,12 @@ import org.apache.http.client.methods.HttpRequestBase;
 public interface WebClientInterface {
 	
 	/***
+	 * Inject all cookies in the web client to a request.
+	 * @param req Target request
+	 */
+	public void injectCookiesToRequest(HttpRequestBase req);
+	
+	/***
 	 * Send a request to the server and get response.
 	 * @param host The target host
 	 * @param req A HttpGet/Post request

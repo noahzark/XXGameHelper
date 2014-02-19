@@ -1,6 +1,8 @@
 package xxgamehelper.framework.model;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.cookie.CookieOrigin;
 import org.apache.http.cookie.CookieSpec;
@@ -37,6 +39,16 @@ public abstract class WebClient extends WebClientData implements WebClientInterf
 			}};
 		webclient.getCookieSpecs().register("easy", csf);
 		webclient.getParams().setParameter(ClientPNames.COOKIE_POLICY, "easy");
+	}
+	
+	/***
+	 * User proxy server to net connections.
+	 * @param address The proxy server address
+	 * @param port The proxy server port
+	 */
+	public void userProxy(String address, int port) {
+		HttpHost proxy = new HttpHost(address, port);
+		this.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}
 
 }
