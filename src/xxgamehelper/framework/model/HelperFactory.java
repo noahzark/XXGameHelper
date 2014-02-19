@@ -21,6 +21,6 @@ public interface HelperFactory {
 	 * @param messenger
 	 * @return
 	 */
-	Core buildCore(WebClient client, Messenger messenger);
+	Core buildCore(Messenger messenger);
 	
 }
