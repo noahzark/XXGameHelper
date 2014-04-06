@@ -16,6 +16,8 @@ public abstract class CoreData {
 		this.messenger = messenger;
 		this.webclient = messenger.getWebClient();
 		this.exitFlag = false;
+		this.basicRestTime = 20;
+		this.extraRestTime = 20;
 	}
 	
 	/***
@@ -61,5 +63,10 @@ public abstract class CoreData {
 	 * A randomizer to generate random numbers
 	 */
 	protected Random randomer;
+	
+	/***
+	 * Rest time = Basic rest time + 1 ~ Extra rest time
+	 */
+	protected int basicRestTime, extraRestTime;
 	
 }

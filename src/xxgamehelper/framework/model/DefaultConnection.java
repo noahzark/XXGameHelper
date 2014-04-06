@@ -43,7 +43,7 @@ public abstract class DefaultConnection extends Connection {
 	public boolean doPost(HttpHost host, HttpPost req,
 			HttpEntity entity, String fileName) {
 		req.setEntity(entity);
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 	}
 	
 	/***
@@ -54,7 +54,7 @@ public abstract class DefaultConnection extends Connection {
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 	}
 	
 }

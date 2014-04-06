@@ -16,7 +16,7 @@ public class HelperLauncher {
 	 * @return The helper thread
 	 */
 	public static void launch(Messenger messenger) {
-		FileUtils.createDirectory(messenger.workPath);
+		FileUtils.createDirectory(messenger.getWorkPath());
 		messenger.setGameThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		if (tscon.connect())

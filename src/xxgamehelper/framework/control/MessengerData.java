@@ -15,6 +15,7 @@ public abstract class MessengerData {
 	 * Default messenger data constructor with some initial values.
 	 */
 	public MessengerData(HelperFactory helperFactory) {
+		this.dataPath = "%APPDATA%/XXGameHelper/";
 		this.workPath = "work";
 		this.betaMode = false;
 		this.debugMode = false;
@@ -38,11 +39,44 @@ public abstract class MessengerData {
 	public void setWebClient(WebClient webClient) {
 		this.webClient = webClient;
 	}
+	
+	/***
+	 * The method to get the program's name.
+	 * @return Program name string
+	 */
+	public abstract String getAPPName();
+	
+	/***
+	 * The directory which contains the application data.
+	 */
+	private String dataPath;
+	
+	/**
+	 * @return the directory which contains the application data.
+	 */
+	public String getDataPath() {
+		return this.dataPath + this.getAPPName();
+	}
 
 	/***
-	 * The program work path.
+	 * The application work path.
 	 */
-	public String workPath;
+	private String workPath;
+	
+	/***
+	 * 
+	 * @return the application work path.
+	 */
+	public String getWorkPath() {
+		return this.getDataPath() + "/" + workPath;
+	}
+
+	/**
+	 * @param workPath the workPath to set
+	 */
+	public void setWorkPath(String workPath) {
+		this.workPath = workPath;
+	}
 	
 	/***
 	 * For beta tests or premium uses.

@@ -17,7 +17,7 @@ import xxgamehelper.framework.utils.FileUtils;
 /***
  * The web client of game helper.
  * @author LongFangzhou
- * @version 0.2
+ * @version 0.3
  */
 public class DefaultWebClient extends WebClient {
 	
@@ -64,6 +64,7 @@ public class DefaultWebClient extends WebClient {
 		}
 		this.lastRsp = rsp;
 		try {
+			fileName = this.messenger.getWorkPath()	+ fileName;
 			if (FileUtils.saveRspToFile(rsp, fileName)) {
 				if (this.messenger.isDebugMode())
 					this.showLastResponseSummary();

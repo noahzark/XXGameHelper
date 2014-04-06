@@ -7,9 +7,9 @@ import xxgamehelper.framework.model.HelperFactory;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.3
+ * @version 0.4
  */
-public class DefaultMessenger extends Messenger {
+public abstract class DefaultMessenger extends Messenger {
 	
 	public DefaultMessenger(HelperFactory helperFactory) {
 		super(helperFactory);
