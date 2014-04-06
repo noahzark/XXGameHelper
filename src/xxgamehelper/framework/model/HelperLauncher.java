@@ -1,6 +1,8 @@
 package xxgamehelper.framework.model;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.model.connection.Connection;
+import xxgamehelper.framework.model.core.Core;
 import xxgamehelper.framework.utils.FileUtils;
 
 /***
@@ -16,7 +18,7 @@ public class HelperLauncher {
 	 * @return The helper thread
 	 */
 	public static void launch(Messenger messenger) {
-		FileUtils.createDirectory(messenger.workPath);
+		FileUtils.createDirectory(messenger.getWorkPath());
 		messenger.setGameThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		if (tscon.connect())

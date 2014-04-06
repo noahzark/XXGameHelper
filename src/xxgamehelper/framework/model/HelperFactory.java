@@ -1,6 +1,8 @@
 package xxgamehelper.framework.model;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.model.connection.Connection;
+import xxgamehelper.framework.model.core.Core;
 
 /***
  * The factory to build connections and cores.

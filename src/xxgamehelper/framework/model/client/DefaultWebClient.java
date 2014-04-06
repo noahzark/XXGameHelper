@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.client;
 
 import java.io.IOException;
 import java.util.Date;
@@ -11,13 +11,14 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.params.CoreProtocolPNames;
-import xxgamehelper.framework.control.Messenger;
+
+import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.utils.FileUtils;
 
 /***
  * The web client of game helper.
  * @author LongFangzhou
- * @version 0.2
+ * @version 0.3
  */
 public class DefaultWebClient extends WebClient {
 	
@@ -47,7 +48,6 @@ public class DefaultWebClient extends WebClient {
 		try {
 			rsp = this.execute(host, req);
 			this.lastRsp = rsp;
-			
 		} catch (IllegalStateException | IOException e) {
 			this.lastRsp = null;
 			this.messenger.showError(e);

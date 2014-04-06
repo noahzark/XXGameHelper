@@ -1,4 +1,4 @@
-package xxgamehelper.framework.control;
+package xxgamehelper.framework.control.messenger;
 
 /***
  * The messenger class should provide information and error output methods.

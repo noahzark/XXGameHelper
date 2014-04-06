@@ -1,6 +1,6 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.core;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
 
 /***
  * The core class should provide a constructor initialize with web client.

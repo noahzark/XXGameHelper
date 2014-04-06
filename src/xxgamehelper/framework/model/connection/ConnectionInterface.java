@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.connection;
 
 /***
  * The connection class should contains connect and check connection methods.

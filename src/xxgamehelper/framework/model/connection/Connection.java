@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.connection;
 
 /***
  * Programs should use connection class to login to the server

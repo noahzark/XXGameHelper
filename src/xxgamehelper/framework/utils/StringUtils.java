@@ -17,37 +17,37 @@ public class StringUtils {
 	/***
 	 * Check if a key string is in a file(Default use UTF-8 char set to open it).
 	 * @param key The key String
-	 * @param fileName The name of target file
+	 * @param filePath The name of target file
 	 * @return Null if the key is not found,
 	 * else return the line where the string first occurred
 	 */
-	public static String findString(String key, String fileName){
-		return StringUtils.findString(key, fileName, "UTF-8");
+	public static String searchForString(String key, String filePath){
+		return StringUtils.findString(key, filePath, "UTF-8");
 	}
 	
 	/***
 	 * Get all lines which contains the key string in a file(Default use UTF-8 char set to open it).
 	 * @param key The key string
-	 * @param fileName The name of target file
+	 * @param filePath The name of target file
 	 * @param charsetName  The char set used to open the file
 	 * @return A string array
 	 */
-	public static String[] findAllString(String key, String fileName) {
-		return StringUtils.findAllString(key, fileName, "UTF-8");
+	public static String[] findAllString(String key, String filePath) {
+		return StringUtils.findAllString(key, filePath, "UTF-8");
 	}
 	
 	/***
 	 * Check if a key string is in a file.
 	 * @param key The key String
-	 * @param fileName The name of target file
+	 * @param filePath The name of target file
 	 * @param charsetName The char set used to open the file
 	 * @return Null if the key is not found,
 	 * else return the line where the string first occurred
 	 */
-	public static String findString(String key, String fileName, String charsetName) {
+	public static String findString(String key, String filePath, String charsetName) {
 		try {
 			InputStreamReader isr = new InputStreamReader(
-					new FileInputStream(fileName), charsetName);
+					new FileInputStream(filePath), charsetName);
 			BufferedReader br = new BufferedReader(isr);
 			String s;
 			while ((s = br.readLine())!=null){
@@ -68,15 +68,15 @@ public class StringUtils {
 	/***
 	 * Get all lines which contains the key string in a file.
 	 * @param key The key string
-	 * @param fileName The name of target file
+	 * @param filePath The name of target file
 	 * @param charsetName  The char set used to open the file
 	 * @return A string array
 	 */
-	public static String[] findAllString(String key, String fileName, String charsetName) {
+	public static String[] findAllString(String key, String filePath, String charsetName) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			InputStreamReader isr = new InputStreamReader(
-					new FileInputStream(fileName), charsetName);
+					new FileInputStream(filePath), charsetName);
 			BufferedReader br = new BufferedReader(isr);
 			String s;
 			while ((s = br.readLine())!=null){

@@ -1,6 +1,6 @@
 package xxgamehelper.framework.control;
 
-public interface GameOperation {
+public interface GameOperationInterface {
 	
 	/***
 	 * Start the game thread.

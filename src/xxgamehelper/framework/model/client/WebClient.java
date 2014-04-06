@@ -1,4 +1,4 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.client;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.params.ClientPNames;
@@ -11,7 +11,7 @@ import org.apache.http.cookie.MalformedCookieException;
 import org.apache.http.impl.cookie.BrowserCompatSpec;
 import org.apache.http.params.HttpParams;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
 
 public abstract class WebClient extends WebClientData implements WebClientInterface {
 

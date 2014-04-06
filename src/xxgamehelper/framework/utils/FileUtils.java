@@ -12,7 +12,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import xxgamehelper.framework.model.Core;
+import xxgamehelper.framework.model.core.Core;
 
 /***
  * Some tools to operate on files.
@@ -73,23 +73,16 @@ public class FileUtils {
 			if (entity != null) {
 				Header[] coding = rsp.getHeaders("Content-Encoding");
 				InputStream is = null;
-				try {
-					if (coding.length>0)
-						is = new GZIPInputStream(entity.getContent());
-					else
-						is = entity.getContent();
-					FileOutputStream fos = new FileOutputStream(new File(fileName));
-					byte[] b = new byte[Core.BUFFERSIZE];
-					int len = 0;
-					while((len=is.read(b))!=-1)
-						fos.write(b,0,len);
-					fos.close();
-				} catch (IllegalStateException | IOException e) {
-//					this.messenger.showError(e);
-					return false;
-				} finally {
-					EntityUtils.consume(entity);
-				}
+				if (coding.length>0)
+					is = new GZIPInputStream(entity.getContent());
+				else
+					is = entity.getContent();
+				FileOutputStream fos = new FileOutputStream(new File(fileName));
+				byte[] b = new byte[Core.BUFFERSIZE];
+				int len = 0;
+				while((len=is.read(b))!=-1)
+					fos.write(b,0,len);
+				fos.close();
 			}
 		}
 		return true;

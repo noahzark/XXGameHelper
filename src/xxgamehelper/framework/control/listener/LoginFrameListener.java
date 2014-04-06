@@ -3,7 +3,7 @@ package xxgamehelper.framework.control.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.view.LoginFrame;
 
 /***

@@ -1,15 +1,16 @@
-package xxgamehelper.framework.control;
+package xxgamehelper.framework.control.messenger;
 
 import java.util.Date;
 
 import xxgamehelper.framework.model.HelperFactory;
+import xxgamehelper.framework.utils.StringUtils;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.3
+ * @version 0.4
  */
-public class DefaultMessenger extends Messenger {
+public abstract class DefaultMessenger extends Messenger {
 	
 	public DefaultMessenger(HelperFactory helperFactory) {
 		super(helperFactory);
@@ -71,5 +72,16 @@ public class DefaultMessenger extends Messenger {
 			this.gameThread.interrupt();
 			this.gameThread = null;
 		}
+	}
+
+	@Override
+	public String findString(String key, String fileName) {
+		return StringUtils.searchForString(key, this.getWorkPath()+fileName);
+	}
+
+	@Override
+	public String[] findAllString(String key, String fileName) {
+		// TODO Auto-generated method stub
+		return StringUtils.findAllString(key, this.getWorkPath()+fileName);
 	}
 }

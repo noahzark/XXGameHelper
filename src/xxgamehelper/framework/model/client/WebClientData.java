@@ -1,9 +1,9 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.client;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
 
 /***
  * The web client class attributes.

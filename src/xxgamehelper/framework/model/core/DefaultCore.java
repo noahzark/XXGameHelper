@@ -1,11 +1,12 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.core;
 
 import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import xxgamehelper.framework.control.Messenger;
+
+import xxgamehelper.framework.control.messenger.Messenger;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
@@ -35,7 +36,7 @@ public abstract class DefaultCore extends Core {
 	public boolean getPage(String remoteAddress, String fileName) {
 		if (this.preRequest(remoteAddress)){
 			HttpGet req = new HttpGet(remoteAddress);
-			return webclient.saveRequestToFile(host, req, fileName);
+			return webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 		}
 		return false;
 	}
@@ -44,7 +45,7 @@ public abstract class DefaultCore extends Core {
 		if (this.preRequest(remoteAddress)){
 			HttpPost req = new HttpPost(remoteAddress);
 			req.setEntity(entity);
-			return webclient.saveRequestToFile(host, req, fileName);
+			return webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 		}
 		return false;
 	}
@@ -54,6 +55,10 @@ public abstract class DefaultCore extends Core {
 	}
 	
 	private long generateRestTime(int basicRestTime, int extraRestTime){
+		if (extraRestTime<=0) {
+			this.messenger.showWarning("extra rest time is illegal, use default");
+			extraRestTime = 30;
+		}
 		basicRestTime += randomer.nextInt(extraRestTime);
 		return basicRestTime;
 	}
@@ -61,7 +66,7 @@ public abstract class DefaultCore extends Core {
 	public void rest() {
 		try {
 			long t = 0;
-			t = this.generateRestTime(5,5);
+			t = this.generateRestTime(this.basicRestTime, this.extraRestTime);
 			this.messenger.pauseGame(t);
 		} catch (InterruptedException e) {
 			this.messenger.println("The rest is interrupted");

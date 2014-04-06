@@ -1,10 +1,11 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.core;
 
 import java.util.Random;
 
 import org.apache.http.HttpHost;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.model.client.WebClient;
 
 /***
  * The core class attributes.
@@ -16,6 +17,8 @@ public abstract class CoreData {
 		this.messenger = messenger;
 		this.webclient = messenger.getWebClient();
 		this.exitFlag = false;
+		this.basicRestTime = 20;
+		this.extraRestTime = 20;
 	}
 	
 	/***
@@ -61,5 +64,10 @@ public abstract class CoreData {
 	 * A randomizer to generate random numbers
 	 */
 	protected Random randomer;
+	
+	/***
+	 * Rest time = Basic rest time + 1 ~ Extra rest time
+	 */
+	protected int basicRestTime, extraRestTime;
 	
 }

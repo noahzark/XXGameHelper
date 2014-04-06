@@ -1,11 +1,12 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.connection;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.model.client.WebClient;
 
 /***
  * A sample of Connection's implement to provide basic/default functions.
@@ -43,7 +44,7 @@ public abstract class DefaultConnection extends Connection {
 	public boolean doPost(HttpHost host, HttpPost req,
 			HttpEntity entity, String fileName) {
 		req.setEntity(entity);
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 	}
 	
 	/***
@@ -54,7 +55,7 @@ public abstract class DefaultConnection extends Connection {
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
 	}
 	
 }

@@ -1,9 +1,10 @@
-package xxgamehelper.framework.control;
+package xxgamehelper.framework.control.messenger;
 
+import java.io.File;
 import java.util.TreeMap;
 
 import xxgamehelper.framework.model.HelperFactory;
-import xxgamehelper.framework.model.WebClient;
+import xxgamehelper.framework.model.client.WebClient;
 
 /***
  * The messenger class attributes.
@@ -15,6 +16,14 @@ public abstract class MessengerData {
 	 * Default messenger data constructor with some initial values.
 	 */
 	public MessengerData(HelperFactory helperFactory) {
+		this.dataPath = "E:/XXGameHelper/";
+		File workDir = new File(dataPath);
+		if (!workDir.exists())
+			workDir.mkdirs();
+		else
+			if (!workDir.isDirectory())
+				System.out.println("Work Directory error.");
+		
 		this.workPath = "work";
 		this.betaMode = false;
 		this.debugMode = false;
@@ -38,11 +47,44 @@ public abstract class MessengerData {
 	public void setWebClient(WebClient webClient) {
 		this.webClient = webClient;
 	}
+	
+	/***
+	 * The method to get the program's name.
+	 * @return Program name string
+	 */
+	public abstract String getAPPName();
+	
+	/***
+	 * The directory which contains the application data.
+	 */
+	private String dataPath;
+	
+	/**
+	 * @return the directory which contains the application data.
+	 */
+	public String getDataPath() {
+		return this.dataPath + this.getAPPName();
+	}
 
 	/***
-	 * The program work path.
+	 * The application work path.
 	 */
-	public String workPath;
+	private String workPath;
+	
+	/***
+	 * 
+	 * @return the application work path.
+	 */
+	public String getWorkPath() {
+		return this.getDataPath() + "/" + workPath + "/";
+	}
+
+	/**
+	 * @param workPath the workPath to set
+	 */
+	public void setWorkPath(String workPath) {
+		this.workPath = workPath;
+	}
 	
 	/***
 	 * For beta tests or premium uses.

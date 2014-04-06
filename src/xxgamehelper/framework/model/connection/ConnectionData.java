@@ -1,6 +1,7 @@
-package xxgamehelper.framework.model;
+package xxgamehelper.framework.model.connection;
 
-import xxgamehelper.framework.control.Messenger;
+import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.model.client.WebClient;
 
 /***
  * The connection class attributes.
