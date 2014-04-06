@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /***
  * A scanner to check a string in a file or get a string in special pattern.
  * @author LongFangzhou
- * @author 1.1
+ * @author 1.3
  */
 public class StringUtils {
 	
@@ -22,7 +22,7 @@ public class StringUtils {
 	 * else return the line where the string first occurred
 	 */
 	public static String searchForString(String key, String filePath){
-		return StringUtils.findString(key, filePath, "UTF-8");
+		return StringUtils.searchString(key, filePath, "UTF-8");
 	}
 	
 	/***
@@ -32,8 +32,8 @@ public class StringUtils {
 	 * @param charsetName  The char set used to open the file
 	 * @return A string array
 	 */
-	public static String[] findAllString(String key, String filePath) {
-		return StringUtils.findAllString(key, filePath, "UTF-8");
+	public static String[] searchAllString(String key, String filePath) {
+		return StringUtils.searchAllString(key, filePath, "UTF-8");
 	}
 	
 	/***
@@ -44,7 +44,7 @@ public class StringUtils {
 	 * @return Null if the key is not found,
 	 * else return the line where the string first occurred
 	 */
-	public static String findString(String key, String filePath, String charsetName) {
+	public static String searchString(String key, String filePath, String charsetName) {
 		try {
 			InputStreamReader isr = new InputStreamReader(
 					new FileInputStream(filePath), charsetName);
@@ -72,7 +72,7 @@ public class StringUtils {
 	 * @param charsetName  The char set used to open the file
 	 * @return A string array
 	 */
-	public static String[] findAllString(String key, String filePath, String charsetName) {
+	public static String[] searchAllString(String key, String filePath, String charsetName) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			InputStreamReader isr = new InputStreamReader(

@@ -82,6 +82,6 @@ public abstract class DefaultMessenger extends Messenger {
 	@Override
 	public String[] findAllString(String key, String fileName) {
 		// TODO Auto-generated method stub
-		return StringUtils.findAllString(key, this.getWorkPath()+fileName);
+		return StringUtils.searchAllString(key, this.getWorkPath()+fileName);
 	}
 }

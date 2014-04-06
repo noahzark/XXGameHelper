@@ -36,7 +36,7 @@ public abstract class DefaultCore extends Core {
 	public boolean getPage(String remoteAddress, String fileName) {
 		if (this.preRequest(remoteAddress)){
 			HttpGet req = new HttpGet(remoteAddress);
-			return webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
+			return webclient.saveRequestToFile(host, req, fileName);
 		}
 		return false;
 	}

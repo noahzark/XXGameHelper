@@ -55,7 +55,7 @@ public abstract class DefaultConnection extends Connection {
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
-		return this.webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
+		return this.webclient.saveRequestToFile(host, req, fileName);
 	}
 	
 }
