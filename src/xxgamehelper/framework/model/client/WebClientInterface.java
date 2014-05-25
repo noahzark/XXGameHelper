@@ -44,4 +44,11 @@ public interface WebClientInterface {
 	 * @param ua User agent string
 	 */
 	public void setUserAgent(String ua);
+	
+	/***
+	 * User proxy server to net connections.
+	 * @param address The proxy server address
+	 * @param port The proxy server port
+	 */
+	public void useProxy(String address, int port);
 }

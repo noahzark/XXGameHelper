@@ -41,12 +41,7 @@ public abstract class WebClient extends WebClientData implements WebClientInterf
 		webclient.getParams().setParameter(ClientPNames.COOKIE_POLICY, "easy");
 	}
 	
-	/***
-	 * User proxy server to net connections.
-	 * @param address The proxy server address
-	 * @param port The proxy server port
-	 */
-	public void userProxy(String address, int port) {
+	public void useProxy(String address, int port) {
 		HttpHost proxy = new HttpHost(address, port);
 		this.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}

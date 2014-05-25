@@ -64,8 +64,8 @@ public class DefaultWebClient extends WebClient {
 		}
 		this.lastRsp = rsp;
 		try {
-			fileName = this.messenger.getWorkPath()	+ fileName;
-			if (FileUtils.saveRspToFile(rsp, fileName)) {
+			String filePath = this.messenger.getWorkPath()	+ fileName;
+			if (FileUtils.saveRspToFile(rsp, filePath)) {
 				if (this.messenger.isDebugMode())
 					this.showLastResponseSummary();
 				return true;
