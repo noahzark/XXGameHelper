@@ -6,6 +6,8 @@ package xxgamehelper.framework.model.connection;
  */
 public abstract interface ConnectionInterface {
 	
+	public void useProxy(String address, int port);
+	
 	/***
 	 * Login to the server
 	 * @return True while connect operation is done. If errors occurs, return false.
