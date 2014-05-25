@@ -1,12 +1,14 @@
 package xxgamehelper.framework.model.core;
 
+import java.util.List;
 import java.util.Random;
-
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
 import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.utils.CoreEntityUtils;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
@@ -41,11 +43,12 @@ public abstract class DefaultCore extends Core {
 		return false;
 	}
 	
-	public boolean postPage(String remoteAddress, HttpEntity entity, String fileName){
+	public boolean postPage(String remoteAddress, List<NameValuePair> formParams, String fileName){
 		if (this.preRequest(remoteAddress)){
 			HttpPost req = new HttpPost(remoteAddress);
+			HttpEntity entity = CoreEntityUtils.generateEntity(formParams);
 			req.setEntity(entity);
-			return webclient.saveRequestToFile(host, req, this.messenger.getWorkPath()+"/"+fileName);
+			return webclient.saveRequestToFile(host, req, fileName);
 		}
 		return false;
 	}

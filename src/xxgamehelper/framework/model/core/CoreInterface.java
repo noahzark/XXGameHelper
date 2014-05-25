@@ -1,6 +1,7 @@
 package xxgamehelper.framework.model.core;
 
-import org.apache.http.HttpEntity;
+import java.util.List;
+import org.apache.http.NameValuePair;
 
 /***
  * The core class should be runnable to improve stability and achieve multi-thread.
@@ -27,11 +28,11 @@ public abstract interface CoreInterface extends Runnable {
 	/***
 	 * Use POST method to obtain web content.
 	 * @param remoteAddress Remote net address.
-	 * @param httpEntity To save the parameters.
+	 * @param formParams To save the parameters.
 	 * @param fileName A file to save those content.
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean postPage(String remoteAddress, HttpEntity entity, String fileName);
+	abstract boolean postPage(String remoteAddress, List<NameValuePair> formParams, String fileName);
 	
 	/***
 	 * The method to clean temporary work files. You can use utils.FileUtils for help.
