@@ -76,12 +76,12 @@ public abstract class DefaultMessenger extends Messenger {
 
 	@Override
 	public String findString(String key, String fileName) {
-		return StringUtils.searchForString(key, this.getWorkPath()+fileName);
+		return StringUtils.searchForString(key, this.getWorkPath(), fileName);
 	}
 
 	@Override
 	public String[] findAllString(String key, String fileName) {
 		// TODO Auto-generated method stub
-		return StringUtils.searchAllString(key, this.getWorkPath()+fileName);
+		return StringUtils.searchAllString(key, this.getWorkPath(), fileName);
 	}
 }
