@@ -63,7 +63,7 @@ public abstract class MessengerData {
 	 * @return the directory which contains the application data.
 	 */
 	public String getDataPath() {
-		return this.dataPath + this.getAPPName();
+		return this.dataPath + this.getAPPName() + "/";
 	}
 
 	/***
@@ -76,7 +76,7 @@ public abstract class MessengerData {
 	 * @return the application work path.
 	 */
 	public String getWorkPath() {
-		return this.getDataPath() + "/" + workPath + "/";
+		return this.getDataPath() + workPath + "/";
 	}
 
 	/**
