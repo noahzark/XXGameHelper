@@ -87,8 +87,13 @@ public abstract class DefaultCore extends Core {
 					this.rest();
 				this.cleanFiles();
 			}
+			this.postGame();
 		} catch (Exception e) {
 			this.messenger.showError(e);
 		}
+	}
+	
+	@Override
+	public void postGame() {
 	}
 }

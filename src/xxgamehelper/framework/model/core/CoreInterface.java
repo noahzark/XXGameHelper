@@ -50,6 +50,12 @@ public abstract interface CoreInterface extends Runnable {
 	abstract void runGame();
 	
 	/***
+	 * Do some operations when the game is finish.
+	 */
+	abstract void postGame();
+	
+	
+	/***
 	 * Update the verify token in messenger to show the thread is alive.
 	 */
 	abstract void updateToken();
