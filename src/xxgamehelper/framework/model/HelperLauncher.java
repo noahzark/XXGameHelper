@@ -19,12 +19,12 @@ public class HelperLauncher {
 	 */
 	public static void launch(Messenger messenger) {
 		FileUtils.createDirectory(messenger.getWorkPath());
-		messenger.setGameThread(null);
+		messenger.setHelperThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		if (tscon.connect())
 			if (tscon.check()){
 				Core core = messenger.getHelperFactory().buildCore(messenger);
-				messenger.setGameThread(new Thread(core));
+				messenger.setHelperThread(new Thread(core));
 				messenger.startHelper();
 			}
 	}

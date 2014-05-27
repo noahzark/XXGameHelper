@@ -8,17 +8,13 @@ import xxgamehelper.framework.utils.StringUtils;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.4
+ * @version 0.5
  */
 public abstract class DefaultMessenger extends Messenger {
 	
 	public DefaultMessenger(HelperFactory helperFactory) {
 		super(helperFactory);
-		// TODO Auto-generated constructor stub
 	}
-
-	public final static int VERSION = 1;
-	public final static String VERSIONSTRING = "1.0";
 
 	public void println(String str) {
 		this.print(str + "\n");
@@ -47,7 +43,7 @@ public abstract class DefaultMessenger extends Messenger {
 	}
 	
 	public void startHelper() {
-		this.gameThread.start();
+		this.helperThread.start();
 	}
 	
 	public void pauseHelper(long t) throws InterruptedException{
@@ -56,21 +52,21 @@ public abstract class DefaultMessenger extends Messenger {
 	}
 	
 	public void continueHelper() {
-		this.gameThread.interrupt();
+		this.helperThread.interrupt();
 	}
 	
 	public boolean isHelperAlive() {
-		if (this.gameThread!=null)
-			if (this.gameThread.isAlive())
+		if (this.helperThread!=null)
+			if (this.helperThread.isAlive())
 				return true;
 		return false;
 	}
 	
 	public void releaseHelperThread() {
-		if (this.gameThread!=null) {
-			this.gameThread.interrupt();
-			this.gameThread.interrupt();
-			this.gameThread = null;
+		if (this.helperThread!=null) {
+			this.helperThread.interrupt();
+			this.helperThread.interrupt();
+			this.helperThread = null;
 		}
 	}
 

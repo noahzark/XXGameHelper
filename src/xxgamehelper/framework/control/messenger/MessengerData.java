@@ -120,20 +120,20 @@ public abstract class MessengerData {
 		this.debugMode = debugMode;
 	}
 	
-	protected Thread gameThread;
+	protected Thread helperThread;
 	
 	/**
 	 * @return the gameThread
 	 */
-	public Thread getGameThread() {
-		return gameThread;
+	public Thread getHelperThread() {
+		return helperThread;
 	}
 
 	/**
-	 * @param gameThread the gameThread to set
+	 * @param helperThread the gameThread to set
 	 */
-	public void setGameThread(Thread gameThread) {
-		this.gameThread = gameThread;
+	public void setHelperThread(Thread helperThread) {
+		this.helperThread = helperThread;
 	}
 	
 	/***
