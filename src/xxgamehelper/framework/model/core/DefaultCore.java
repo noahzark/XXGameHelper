@@ -70,7 +70,7 @@ public abstract class DefaultCore extends Core {
 		try {
 			long t = 0;
 			t = this.generateRestTime(this.basicRestTime, this.extraRestTime);
-			this.messenger.pauseGame(t);
+			this.messenger.pauseHelper(t);
 		} catch (InterruptedException e) {
 			this.messenger.println("The rest is interrupted");
 		}
@@ -82,9 +82,14 @@ public abstract class DefaultCore extends Core {
 			this.initGame();
 			while (!this.isExitFlag()){
 				this.updateToken();
-				this.runGame();
-				if (!this.isExitFlag())
-					this.rest();
+				try {
+					this.runGame();
+					if (!this.isExitFlag())
+						this.rest();
+				} catch (Exception e) {
+					this.messenger.showError(e);
+					break;
+				}
 				this.cleanFiles();
 			}
 			this.postGame();
