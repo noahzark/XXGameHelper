@@ -25,7 +25,7 @@ public class HelperLauncher {
 			if (tscon.check()){
 				Core core = messenger.getHelperFactory().buildCore(messenger);
 				messenger.setGameThread(new Thread(core));
-				messenger.startGame();
+				messenger.startHelper();
 			}
 	}
 	
@@ -37,19 +37,19 @@ public class HelperLauncher {
 	 * @param checkInterval The interval time during the check break (seconds)
 	 */
 	public static void launchWithCheker(Messenger messenger, int checkInterval) {
-		messenger.releaseGameThread();
+		messenger.releaseHelperThread();
 		while (true){
 			HelperLauncher.launch(messenger);
 			long verifyToken = messenger.getVerifyToken();
 			try {
 				Thread.sleep(checkInterval*1000); // Take a break to wait core thread to run
-				while(messenger.isGameAlive() && verifyToken != messenger.getVerifyToken()) {
+				while(messenger.isHelperAlive() && verifyToken != messenger.getVerifyToken()) {
 					verifyToken = messenger.getVerifyToken();// Update the verify token
 					messenger.println("The thread is alive, verify token:"+verifyToken);
 					Thread.sleep(checkInterval*1000);						
 				}
 				messenger.println("The thread is dead, try to restart.");
-				messenger.releaseGameThread();
+				messenger.releaseHelperThread();
 			} catch (InterruptedException e) {
 				messenger.showError(e);
 			}

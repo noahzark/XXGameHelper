@@ -46,27 +46,27 @@ public abstract class DefaultMessenger extends Messenger {
 				+ ", please try again later or contact with the author.\n");
 	}
 	
-	public void startGame() {
+	public void startHelper() {
 		this.gameThread.start();
 	}
 	
-	public void pauseGame(long t) throws InterruptedException{
+	public void pauseHelper(long t) throws InterruptedException{
 		this.println("The game was paused for "+t+" second(s).\n");
 		Thread.sleep(t*1000L);
 	}
 	
-	public void continueGame() {
+	public void continueHelper() {
 		this.gameThread.interrupt();
 	}
 	
-	public boolean isGameAlive() {
+	public boolean isHelperAlive() {
 		if (this.gameThread!=null)
 			if (this.gameThread.isAlive())
 				return true;
 		return false;
 	}
 	
-	public void releaseGameThread() {
+	public void releaseHelperThread() {
 		if (this.gameThread!=null) {
 			this.gameThread.interrupt();
 			this.gameThread.interrupt();
