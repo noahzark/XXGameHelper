@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author LongFangzhou
  * @author 1.3
  */
-public class StringUtils {
+public class StringTools {
 	
 	/***
 	 * Check if a key string is in a file(Default use UTF-8 char set to open it).
@@ -23,7 +23,7 @@ public class StringUtils {
 	 * else return the line where the string first occurred
 	 */
 	public static String searchForString(String key, String workPath, String fileName){
-		return StringUtils.searchForString(key, workPath, fileName, "UTF-8");
+		return StringTools.searchForString(key, workPath, fileName, "UTF-8");
 	}
 	
 	/***
@@ -35,7 +35,7 @@ public class StringUtils {
 	 * @return A string array
 	 */
 	public static String[] searchAllString(String key, String workPath, String fileName) {
-		return StringUtils.searchAllString(key, workPath, fileName, "UTF-8");
+		return StringTools.searchAllString(key, workPath, fileName, "UTF-8");
 	}
 	
 	/***
@@ -141,5 +141,15 @@ public class StringUtils {
 			n++;
 		}
 		return n;
+	}
+	
+	/***
+	 * Split a fraction
+	 * @param fractionStr The target String
+	 * @return An int array with two numbers in it.
+	 */
+	public static int[] splitFraction(String fractionStr) {
+		String[] infos = fractionStr.split("/");
+		return new int[]{Integer.parseInt(infos[0]), Integer.parseInt(infos[1])};
 	}
 }

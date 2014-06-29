@@ -3,7 +3,7 @@ package xxgamehelper.framework.control.messenger;
 import java.util.Date;
 
 import xxgamehelper.framework.model.HelperFactory;
-import xxgamehelper.framework.utils.StringUtils;
+import xxgamehelper.framework.utils.StringTools;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
@@ -77,12 +77,12 @@ public abstract class DefaultMessenger extends Messenger {
 
 	@Override
 	public String findString(String key, String fileName) {
-		return StringUtils.searchForString(key, this.getWorkPath(), fileName);
+		return StringTools.searchForString(key, this.getWorkPath(), fileName);
 	}
 
 	@Override
 	public String[] findAllString(String key, String fileName) {
 		// TODO Auto-generated method stub
-		return StringUtils.searchAllString(key, this.getWorkPath(), fileName);
+		return StringTools.searchAllString(key, this.getWorkPath(), fileName);
 	}
 }
