@@ -33,6 +33,10 @@ public abstract class DefaultCore extends Core {
 			this.messenger.showError("Server is null");
 			return false;
 		}
+		if (this.webclient == null) {
+			this.messenger.showError("Webclient is null", "Maybe developer forgot to save connection");
+			return false;
+		}
 		return true;
 	}
 	
