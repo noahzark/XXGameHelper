@@ -34,10 +34,16 @@ public abstract class CoreData {
 	/***
 	 * The host target.
 	 */
-	protected HttpHost host;
+	protected HttpHost server;
 
-	public void setHost(HttpHost host) {
-		this.host = host;
+	/***
+	 * Set the server which will login to.
+	 * @param protocol HTTPS/HTTP
+	 * @param address Server address
+	 * @param port Server port
+	 */
+	public void setServer(String protocol, String address, int port) {
+		this.server = new HttpHost(address, port, protocol);
 	}
 	
 	/**

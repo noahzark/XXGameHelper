@@ -3,6 +3,7 @@ package xxgamehelper.framework.model.core;
 import java.util.List;
 import java.util.Random;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -28,8 +29,8 @@ public abstract class DefaultCore extends Core {
 	}
 	
 	public boolean preRequest(String remoteAddress) {
-		if (this.host == null){
-			this.messenger.showError("host is null");
+		if (this.server == null){
+			this.messenger.showError("Server is null");
 			return false;
 		}
 		return true;
@@ -38,7 +39,7 @@ public abstract class DefaultCore extends Core {
 	public boolean getPage(String remoteAddress, String fileName) {
 		if (this.preRequest(remoteAddress)){
 			HttpGet req = new HttpGet(remoteAddress);
-			return webclient.saveRequestToFile(host, req, fileName);
+			return webclient.saveRequestToFile(server, req, fileName);
 		}
 		return false;
 	}
@@ -48,7 +49,7 @@ public abstract class DefaultCore extends Core {
 			HttpPost req = new HttpPost(remoteAddress);
 			HttpEntity entity = CoreEntityUtils.generateEntity(formParams);
 			req.setEntity(entity);
-			return webclient.saveRequestToFile(host, req, fileName);
+			return webclient.saveRequestToFile(server, req, fileName);
 		}
 		return false;
 	}
@@ -96,6 +97,14 @@ public abstract class DefaultCore extends Core {
 		} catch (Exception e) {
 			this.messenger.showError(e);
 		}
+	}
+	
+	/***
+	 * Set the server with default http protocol and 80 port.
+	 * @param address
+	 */
+	public void setServer(String address) {
+		this.server = new HttpHost(address, 80, "http");
 	}
 	
 	@Override
