@@ -152,4 +152,14 @@ public class StringTools {
 		String[] infos = fractionStr.split("/");
 		return new int[]{Integer.parseInt(infos[0]), Integer.parseInt(infos[1])};
 	}
+	
+	/***
+	 * Count a key appears how many times in a string.
+	 * @param targetStr Target string
+	 * @param keyStr The key string
+	 * @return The amount of key string
+	 */
+	public static int countSubstring(String targetStr, String keyStr) {
+		return targetStr.split(keyStr).length - 1 ;
+	}
 }
