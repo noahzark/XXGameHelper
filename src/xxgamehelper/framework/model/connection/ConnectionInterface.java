@@ -24,5 +24,4 @@ public abstract interface ConnectionInterface {
 	 * Save the connection to messenger.
 	 */
 	public void saveConnection();
-	
 }

@@ -44,6 +44,14 @@ public abstract class DefaultConnection extends Connection {
 	}
 	
 	/***
+	 * Set the server with default http protocol and 80 port.
+	 * @param address
+	 */
+	public void setServer(String address) {
+		this.server = new HttpHost(address, 80, "http");
+	}
+	
+	/***
 	 * Use POST method to obtain web content.
 	 * @param host Target host
 	 * @param req The request
