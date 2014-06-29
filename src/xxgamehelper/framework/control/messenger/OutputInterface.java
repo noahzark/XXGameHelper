@@ -26,9 +26,16 @@ public interface OutputInterface {
 	
 	/***
 	 * Output an error message.
+	 * @param errorSummary The summary of error
+	 */
+	void showError(String errorSummary);
+	
+	/***
+	 * Output an error message.
+	 * @param errorSummary The summary of error
 	 * @param errorCause The cause of error
 	 */
-	void showError(String errorCause);
+	void showError(String errorSummary, String errorCause);
 	
 	/***
 	 * Output an error exception.

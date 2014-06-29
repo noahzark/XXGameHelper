@@ -24,9 +24,14 @@ public abstract class DefaultMessenger extends Messenger {
 		System.out.print(str);
 	}
 	
-	public void showError(String errorCause) {
-		println("Error: " + errorCause
+	public void showError(String errorSummary) {
+		println("Error: " + errorSummary
 				+ ", please try again later or contact with the author.\n");
+	}
+	
+	public void showError(String errorSummary, String errorCause) {
+		println("Error: " + errorSummary + "\n"
+				+ errorCause + ", please try again later or contact with the author.\n");
 	}
 	
 	public void showError(Exception e) {
@@ -34,7 +39,7 @@ public abstract class DefaultMessenger extends Messenger {
 			println(new Date()+"");
 			e.printStackTrace();
 		}
-		this.showError(e.toString());
+		this.showError(e.toString(), e.getLocalizedMessage());
 	}
 
 	public void showWarning(String content) {
