@@ -8,7 +8,7 @@ import xxgamehelper.framework.utils.StringTools;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.5
+ * @version 0.6
  */
 public abstract class DefaultMessenger extends Messenger {
 	
@@ -77,12 +77,17 @@ public abstract class DefaultMessenger extends Messenger {
 
 	@Override
 	public String findString(String key, String fileName) {
+		if (!fileName.contains(".")){
+			fileName += ".html";
+		}
 		return StringTools.searchForString(key, this.getWorkPath(), fileName);
 	}
 
 	@Override
 	public String[] findAllString(String key, String fileName) {
-		// TODO Auto-generated method stub
+		if (!fileName.contains(".")){
+			fileName += ".html";
+		}
 		return StringTools.searchAllString(key, this.getWorkPath(), fileName);
 	}
 }

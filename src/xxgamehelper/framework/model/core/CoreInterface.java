@@ -6,7 +6,6 @@ import org.apache.http.NameValuePair;
 /***
  * The core class should be runnable to improve stability and achieve multi-thread.
  * @author LongFangzhou
- * @version 0.2
  */
 public abstract interface CoreInterface extends Runnable {
 
@@ -15,7 +14,7 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param remoteAddress
 	 * @return True if checks passed, otherwise false
 	 */
-	abstract boolean preRequest(String remoteAddress);
+	abstract boolean preRequest(String remoteAddress, String fileName);
 	
 	/***
 	 * Use GET method to obtain web content.

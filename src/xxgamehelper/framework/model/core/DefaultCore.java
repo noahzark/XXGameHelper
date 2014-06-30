@@ -14,7 +14,7 @@ import xxgamehelper.framework.utils.CoreEntityUtils;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.3
+ * @version 0.4
  */
 public abstract class DefaultCore extends Core {
 
@@ -28,7 +28,7 @@ public abstract class DefaultCore extends Core {
 		randomer = new Random();
 	}
 	
-	public boolean preRequest(String remoteAddress) {
+	public boolean preRequest(String remoteAddress, String fileName) {
 		if (this.server == null){
 			this.messenger.showError("Server is null");
 			return false;
@@ -41,7 +41,10 @@ public abstract class DefaultCore extends Core {
 	}
 	
 	public boolean getPage(String remoteAddress, String fileName) {
-		if (this.preRequest(remoteAddress)){
+		if (!fileName.contains(".")){
+			fileName += ".html";
+		}
+		if (this.preRequest(remoteAddress, fileName)){
 			HttpGet req = new HttpGet(remoteAddress);
 			return webclient.saveRequestToFile(server, req, fileName);
 		}
@@ -49,7 +52,10 @@ public abstract class DefaultCore extends Core {
 	}
 	
 	public boolean postPage(String remoteAddress, List<NameValuePair> formParams, String fileName){
-		if (this.preRequest(remoteAddress)){
+		if (!fileName.contains(".")){
+			fileName += ".html";
+		}
+		if (this.preRequest(remoteAddress, fileName)){
 			HttpPost req = new HttpPost(remoteAddress);
 			HttpEntity entity = CoreEntityUtils.generateEntity(formParams);
 			req.setEntity(entity);
