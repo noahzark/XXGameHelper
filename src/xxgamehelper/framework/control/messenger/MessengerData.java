@@ -15,8 +15,8 @@ public abstract class MessengerData {
 	/***
 	 * Default messenger data constructor with some initial values.
 	 */
-	public MessengerData(HelperFactory helperFactory) {
-		this.dataPath = "E:/XXGameHelper/";
+	public MessengerData(String homeDirectory, HelperFactory helperFactory) {
+		this.dataPath = homeDirectory + "/XXGameHelper/";
 		File workDir = new File(dataPath);
 		if (!workDir.exists())
 			workDir.mkdirs();

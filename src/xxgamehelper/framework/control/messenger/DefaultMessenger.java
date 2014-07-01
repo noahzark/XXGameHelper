@@ -12,8 +12,8 @@ import xxgamehelper.framework.utils.StringTools;
  */
 public abstract class DefaultMessenger extends Messenger {
 	
-	public DefaultMessenger(HelperFactory helperFactory) {
-		super(helperFactory);
+	public DefaultMessenger(String homeDir, HelperFactory helperFactory) {
+		super(homeDir, helperFactory);
 	}
 
 	public void println(String str) {
