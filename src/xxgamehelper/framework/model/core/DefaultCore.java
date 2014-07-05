@@ -1,12 +1,16 @@
 package xxgamehelper.framework.model.core;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
-import org.apache.http.HttpEntity;
+import java.util.Set;
+
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.utils.CoreEntityUtils;
@@ -14,7 +18,7 @@ import xxgamehelper.framework.utils.CoreEntityUtils;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.4
+ * @version 0.5
  */
 public abstract class DefaultCore extends Core {
 
@@ -40,25 +44,45 @@ public abstract class DefaultCore extends Core {
 		return true;
 	}
 	
+	public void injectHeaders(HttpRequestBase request, Map<String, String> headers) {
+		if (headers != null) {
+			Set<Entry<String, String>> entries = headers.entrySet();
+			for (Entry<String, String> entry : entries) {
+				request.addHeader(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+	
 	public boolean getPage(String remoteAddress, String fileName) {
+		return this.getPage(remoteAddress, null, fileName);
+	}
+	
+	public boolean getPage(String remoteAddress, Map<String, String> headers, String fileName) {
 		if (!fileName.contains(".")){
 			fileName += ".html";
 		}
 		if (this.preRequest(remoteAddress, fileName)){
 			HttpGet req = new HttpGet(remoteAddress);
+			this.injectHeaders(req, headers);
 			return webclient.saveRequestToFile(server, req, fileName);
 		}
 		return false;
 	}
 	
-	public boolean postPage(String remoteAddress, List<NameValuePair> formParams, String fileName){
+	public boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+			String fileName){
+		return this.postPage(remoteAddress, formParams, null, fileName);
+	}
+	
+	public boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+			Map<String, String> headers, String fileName){
 		if (!fileName.contains(".")){
 			fileName += ".html";
 		}
 		if (this.preRequest(remoteAddress, fileName)){
 			HttpPost req = new HttpPost(remoteAddress);
-			HttpEntity entity = CoreEntityUtils.generateEntity(formParams);
-			req.setEntity(entity);
+			this.injectHeaders(req, headers);
+			req.setEntity(CoreEntityUtils.generateEntity(formParams));
 			return webclient.saveRequestToFile(server, req, fileName);
 		}
 		return false;
