@@ -1,5 +1,6 @@
 package xxgamehelper.framework.control.messenger;
 
+import xxgamehelper.framework.control.OutputInterface;
 import xxgamehelper.framework.control.SearchStringInterface;
 import xxgamehelper.framework.control.HelperOperationInterface;
 import xxgamehelper.framework.model.HelperFactory;
