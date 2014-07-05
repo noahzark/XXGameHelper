@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /***
  * A scanner to check a string in a file or get a string in special pattern.
  * @author LongFangzhou
- * @author 1.3
+ * @author 1.5
  */
 public class StringTools {
 	
@@ -161,5 +161,30 @@ public class StringTools {
 	 */
 	public static int countSubstring(String targetStr, String keyStr) {
 		return targetStr.split(keyStr).length - 1 ;
+	}
+	
+	/***
+	 * Tells if a String is null or empty
+	 * @param keyString The target string to analyze
+	 * @return True if the string is null or empty
+	 */
+	public static boolean isNullOrEmpty(String keyString) {
+		if (keyString!=null)
+			if (!keyString.equals(""))
+				return false;
+		return true;
+	}
+	
+	/***
+	 * Force to parse a string to integer 
+	 * @param numberStr The target string
+	 * @return the integer or minimal value of integer.
+	 */
+	public static int parseIntWithoutCheck(String numberStr) {
+		try {
+			return Integer.parseInt(numberStr);
+		} catch (NumberFormatException e) {
+			return Integer.MIN_VALUE;
+		}
 	}
 }
