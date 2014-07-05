@@ -75,7 +75,6 @@ public abstract class DefaultMessenger extends Messenger {
 		}
 	}
 
-	@Override
 	public String findString(String key, String fileName) {
 		if (!fileName.contains(".")){
 			fileName += ".html";
