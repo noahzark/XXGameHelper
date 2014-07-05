@@ -6,21 +6,21 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 
+import xxgamehelper.framework.control.SearchStringInterface;
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.utils.CoreEntityUtils;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.5
+ * @version 0.7
  */
-public abstract class DefaultCore extends Core {
+public abstract class DefaultCore extends Core implements SearchStringInterface {
 
 	/***
 	 * The constructor to initialize with a web client and a messenger.
@@ -32,13 +32,21 @@ public abstract class DefaultCore extends Core {
 		randomer = new Random();
 	}
 	
+	public String findString(String key, String fileName){
+		return this.messenger.findString(key, fileName);
+	}
+	
+	public String[] findAllString(String key, String fileName) {
+		return this.messenger.findAllString(key, fileName);
+	}
+
 	public boolean preRequest(String remoteAddress, String fileName) {
 		if (this.server == null){
-			this.messenger.showError("Server is null");
+			out.showError("Server is null");
 			return false;
 		}
 		if (this.webclient == null) {
-			this.messenger.showError("Webclient is null", "Maybe developer forgot to save connection");
+			out.showError("Webclient is null", "Maybe developer forgot to save connection");
 			return false;
 		}
 		return true;
@@ -94,7 +102,7 @@ public abstract class DefaultCore extends Core {
 	
 	private long generateRestTime(int basicRestTime, int extraRestTime){
 		if (extraRestTime<=0) {
-			this.messenger.showWarning("extra rest time is illegal, use default");
+			out.showWarning("extra rest time is illegal, use default");
 			extraRestTime = 30;
 		}
 		basicRestTime += randomer.nextInt(extraRestTime);
@@ -122,23 +130,15 @@ public abstract class DefaultCore extends Core {
 					if (!this.isExitFlag())
 						this.rest();
 				} catch (Exception e) {
-					this.messenger.showError(e);
+					out.showError(e);
 					break;
 				}
 				this.cleanFiles();
 			}
 			this.postGame();
 		} catch (Exception e) {
-			this.messenger.showError(e);
+			out.showError(e);
 		}
-	}
-	
-	/***
-	 * Set the server with default http protocol and 80 port.
-	 * @param address
-	 */
-	public void setServer(String address) {
-		this.server = new HttpHost(address, 80, "http");
 	}
 	
 	@Override

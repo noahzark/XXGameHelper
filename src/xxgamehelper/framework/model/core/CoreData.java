@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.apache.http.HttpHost;
 
+import xxgamehelper.framework.control.OutputInterface;
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.model.client.WebClient;
 
@@ -15,6 +16,7 @@ public abstract class CoreData {
 	
 	public CoreData(Messenger messenger) {
 		this.messenger = messenger;
+		this.out = messenger;
 		this.webclient = messenger.getWebClient();
 		this.exitFlag = false;
 		this.basicRestTime = 20;
@@ -22,9 +24,14 @@ public abstract class CoreData {
 	}
 	
 	/***
-	 * The messenger to output data.
+	 * The messenger to carry data.
 	 */
 	protected Messenger messenger;
+	
+	/***
+	 * The output interface to output data.
+	 */
+	protected OutputInterface out;
 
 	/***
 	 * The web client to transfer data.
@@ -35,6 +42,14 @@ public abstract class CoreData {
 	 * The host target.
 	 */
 	protected HttpHost server;
+	
+	/***
+	 * Set the server with default http protocol and 80 port.
+	 * @param address
+	 */
+	public void setServer(String address) {
+		this.server = new HttpHost(address, 80, "http");
+	}
 
 	/***
 	 * Set the server which will login to.
