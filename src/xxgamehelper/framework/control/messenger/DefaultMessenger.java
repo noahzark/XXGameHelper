@@ -2,18 +2,24 @@ package xxgamehelper.framework.control.messenger;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import xxgamehelper.framework.model.HelperFactory;
 import xxgamehelper.framework.utils.StringTools;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.6
+ * @version 0.7
  */
 public abstract class DefaultMessenger extends Messenger {
 	
+	static Logger logger = Logger.getLogger(DefaultMessenger.class);
+	
 	public DefaultMessenger(String homeDir, HelperFactory helperFactory) {
 		super(homeDir, helperFactory);
+		if (logger.isInfoEnabled())
+			logger.info("Default messenger initialized.");
 	}
 
 	public void println(String str) {
@@ -25,13 +31,13 @@ public abstract class DefaultMessenger extends Messenger {
 	}
 	
 	public void showError(String errorSummary) {
-		println("Error: " + errorSummary
-				+ ", please try again later or contact with the author.\n");
+		this.showError(errorSummary, null);
 	}
 	
 	public void showError(String errorSummary, String errorCause) {
-		println("Error: " + errorSummary + "\n"
-				+ errorCause + ", please try again later or contact with the author.\n");
+		println("Error: " + errorSummary
+				+ errorCause != null? " - " + errorCause : ""
+				+ ", please try again later or contact with the author.\n");
 	}
 	
 	public void showError(Exception e) {
@@ -45,6 +51,7 @@ public abstract class DefaultMessenger extends Messenger {
 	public void showWarning(String content) {
 		println("Warning: " + content
 				+ ", please try again later or contact with the author.\n");
+		logger.warn(content);
 	}
 	
 	public void startHelper() {

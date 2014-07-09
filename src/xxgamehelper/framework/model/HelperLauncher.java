@@ -2,6 +2,8 @@ package xxgamehelper.framework.model;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.model.connection.Connection;
 import xxgamehelper.framework.model.core.Core;
@@ -13,6 +15,8 @@ import xxgamehelper.framework.utils.FileUtils;
  */
 public class HelperLauncher {
 	
+	static Logger logger = Logger.getLogger(HelperLauncher.class);
+	
 	/***
 	 * Launch the helper with a messenger and a helper factory.
 	 * @param messenger The helper messenger
@@ -20,14 +24,18 @@ public class HelperLauncher {
 	 * @return The helper thread
 	 */
 	public static void launch(Messenger messenger) {
+		if (logger.isInfoEnabled())
+		logger.info("Initialize the helper.");
 		FileUtils.createDirectory(messenger.getWorkPath());
 		messenger.setHelperThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
+		logger.info("Try to lanch a helper.");
 		if (tscon.connect())
 			if (tscon.check()){
 				Core core = messenger.getHelperFactory().buildCore(messenger);
 				messenger.setHelperThread(new Thread(core));
 				messenger.startHelper();
+				logger.info("Launch succeeded.");
 			}
 	}
 	
@@ -39,6 +47,7 @@ public class HelperLauncher {
 	 * @param checkInterval The interval time during the check break (seconds)
 	 */
 	public static void launchWithCheker(Messenger messenger, int checkInterval) {
+		logger.info("Try to launch helper with a checker per " + checkInterval + " seconds.");
 		messenger.releaseHelperThread();
 		while (true){
 			HelperLauncher.launch(messenger);
