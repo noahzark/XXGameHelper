@@ -1,5 +1,7 @@
 package xxgamehelper.framework.model;
 
+import java.util.Date;
+
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.model.connection.Connection;
 import xxgamehelper.framework.model.core.Core;
@@ -48,7 +50,7 @@ public class HelperLauncher {
 					messenger.println("The thread is alive, verify token:"+verifyToken);
 					Thread.sleep(checkInterval*1000);						
 				}
-				messenger.println("The thread is dead, try to restart.");
+				messenger.println((new Date()) + ": The thread is dead, try to restart.");
 				messenger.releaseHelperThread();
 			} catch (InterruptedException e) {
 				messenger.showError(e);
