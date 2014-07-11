@@ -66,7 +66,8 @@ public abstract interface CoreInterface extends Runnable {
 			Map<String, String> headers, String fileName);
 	
 	/***
-	 * The method to clean temporary work files. You can use utils.FileUtils for help.
+	 * The method to clean temporary work files.
+	 * You can use utils.FileUtils.deleteFiles() for help.
 	 */
 	abstract void cleanFiles();
 
