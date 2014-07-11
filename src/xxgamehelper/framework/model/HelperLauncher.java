@@ -61,10 +61,9 @@ public class HelperLauncher {
 				messenger.println((new Date()) + ": The helper thread is dead.");
 				messenger.println("Dump work files.");
 				logger.info("Start dumping error files.");
-				//Check if the error is duplicated
 				FileTools.fileMove(
 						messenger.getWorkPath(),
-						messenger.getDataPath()+"error/"+(new Date()).getTime(),
+						messenger.getErrorDumpPath()+(new Date()).getTime(),
 						true);
 				logger.info("Done");
 				messenger.println("Try to restart the helper thread");

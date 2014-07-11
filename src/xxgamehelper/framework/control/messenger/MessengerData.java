@@ -25,6 +25,7 @@ public abstract class MessengerData {
 				System.out.println("Work Directory error.");
 		
 		this.workPath = "work";
+		this.errorDumpPath = "error";
 		this.betaMode = false;
 		this.debugMode = false;
 		this.helperConfig = new TreeMap<String, String>();
@@ -72,11 +73,23 @@ public abstract class MessengerData {
 	private String workPath;
 	
 	/***
-	 * 
 	 * @return the application work path.
 	 */
 	public String getWorkPath() {
 		return this.getDataPath() + workPath + "/";
+	}
+	
+	/***
+	 * The place to save error dump files.
+	 */
+	private String errorDumpPath;
+
+	/***
+	 * 
+	 * @return The place to save error dump files.
+	 */
+	public String getErrorDumpPath() {
+		return this.getDataPath() + errorDumpPath + "/";
 	}
 
 	/**
