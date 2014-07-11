@@ -36,7 +36,7 @@ public abstract class DefaultMessenger extends Messenger {
 	
 	public void showError(String errorSummary, String errorCause) {
 		println("Error: " + errorSummary
-				+ errorCause != null? " - " + errorCause : ""
+				+ ((errorCause != null)? " - " + errorCause : "")
 				+ ", please try again later or contact with the author.\n");
 	}
 	
@@ -45,7 +45,7 @@ public abstract class DefaultMessenger extends Messenger {
 			println(new Date()+"");
 			e.printStackTrace();
 		}
-		this.showError(e.toString(), e.getLocalizedMessage());
+		this.showError(e.toString());
 	}
 
 	public void showWarning(String content) {
