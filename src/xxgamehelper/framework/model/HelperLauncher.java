@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.model.connection.Connection;
 import xxgamehelper.framework.model.core.Core;
-import xxgamehelper.framework.utils.FileUtils;
+import xxgamehelper.framework.utils.FileTools;
 
 /***
  * The helper launcher contains a static method to launch the helper.
@@ -26,7 +26,7 @@ public class HelperLauncher {
 	public static void launch(Messenger messenger) {
 		if (logger.isInfoEnabled())
 		logger.info("Initialize the helper.");
-		FileUtils.createDirectory(messenger.getWorkPath());
+		FileTools.createDirectory(messenger.getWorkPath());
 		messenger.setHelperThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		logger.info("Try to lanch a helper.");
@@ -58,8 +58,16 @@ public class HelperLauncher {
 					verifyToken = messenger.getVerifyToken();// Remember the verify token
 					Thread.sleep(checkInterval*1000);// Take a break to wait core thread update token
 				} while(messenger.isHelperAlive() && verifyToken != messenger.getVerifyToken());
-				messenger.println((new Date()) + ": The helper thread is dead, try to restart.");
-				//TODO Dump error files here
+				messenger.println((new Date()) + ": The helper thread is dead.");
+				messenger.println("Dump work files.");
+				logger.info("Start dumping error files.");
+				//Check if the error is duplicated
+				FileTools.fileMove(
+						messenger.getWorkPath(),
+						messenger.getDataPath()+"error/"+(new Date()).getTime(),
+						true);
+				logger.info("Done");
+				messenger.println("Try to restart the helper thread");
 			} catch (InterruptedException e) {
 				messenger.showError(e);
 			} finally {
