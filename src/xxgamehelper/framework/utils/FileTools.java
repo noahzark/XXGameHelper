@@ -19,7 +19,7 @@ import xxgamehelper.framework.model.core.Core;
  * @author LongFangzhou
  * @version 0.1
  */
-public class FileUtils {
+public class FileTools {
 	
 	/***
 	 * A method to delete specific types of files in a directory.
@@ -100,5 +100,40 @@ public class FileUtils {
 		dir.mkdirs();
 		return true;
 	}
+	
+	/***
+	 * Move a file or a directory to a new place
+	 * @param from The original address
+	 * @param to The target address
+	 * @param deleteOld Delete the old files or not
+	 */
+	public static void fileMove(String from, String to, boolean deleteOld){ 
+		File dir = new File(from); 
+		if (dir.isDirectory())
+			System.out.println("Moving:"+dir.getPath());
+		File[] files = dir.listFiles(); //List all files
+		if (files == null)
+			return; 
+		File moveDir = new File(to); //Target
+		if (!moveDir.exists()) { 
+			moveDir.mkdirs(); 
+		}
+		//Move files
+		for (int i = 0; i < files.length; i++) { 
+			if (files[i].isDirectory()) { 
+				fileMove(files[i].getPath(), to + "/" + files[i].getName(), deleteOld); 
+				if (deleteOld)
+					files[i].delete();
+			} 
+			File moveFile = new File(moveDir.getPath() + "/" + files[i].getName());
+			//If there is a file with same name, delete it.
+			if (moveFile.exists()&&moveFile.isFile()) {
+				moveFile.delete(); 
+			}
+			files[i].renameTo(moveFile);
+		}
+		if (deleteOld)
+			dir.delete();
+	} 
 
 }

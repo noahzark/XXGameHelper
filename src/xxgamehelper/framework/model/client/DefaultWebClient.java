@@ -13,7 +13,7 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.params.CoreProtocolPNames;
 
 import xxgamehelper.framework.control.messenger.Messenger;
-import xxgamehelper.framework.utils.FileUtils;
+import xxgamehelper.framework.utils.FileTools;
 
 /***
  * The web client of game helper.
@@ -65,7 +65,7 @@ public class DefaultWebClient extends WebClient {
 		this.lastRsp = rsp;
 		try {
 			String filePath = this.messenger.getWorkPath()	+ fileName;
-			if (FileUtils.saveRspToFile(rsp, filePath)) {
+			if (FileTools.saveRspToFile(rsp, filePath)) {
 				if (this.messenger.isDebugMode())
 					this.showLastResponseSummary();
 				return true;
