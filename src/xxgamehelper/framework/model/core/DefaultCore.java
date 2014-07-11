@@ -132,12 +132,17 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 					this.runGame();
 					if (!this.isExitFlag())
 						this.rest();
+					this.cleanFiles();
 				} catch (Exception e) {
-					logger.error("Found a unhandled error:" + e);
+					StackTraceElement[] stack = e.getStackTrace();
+					int pos = 0;
+					for (;pos<stack.length-1;pos++)
+						if (!stack[pos].getMethodName().contains("Unknown Source"))
+							break;
+					logger.error("Found a unhandled error:" + e + "\n"
+							+ e.getStackTrace()[pos]);
 					out.showError(e);
 					break;
-				} finally {
-					this.cleanFiles();
 				}
 			}
 			this.postGame();
