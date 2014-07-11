@@ -140,7 +140,7 @@ public abstract class MessengerData {
 	 * A verification token for the cheker to check
 	 * whether the thread is running normally or not.
 	 */
-	private long verifyToken = 0L;
+	private long verifyToken = Long.MIN_VALUE;
 	
 	/**
 	 * @return the verifyToken
