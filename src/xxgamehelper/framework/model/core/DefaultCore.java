@@ -137,7 +137,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 					StackTraceElement[] stack = e.getStackTrace();
 					int pos = 0;
 					for (;pos<stack.length-1;pos++)
-						if (!stack[pos].getMethodName().contains("Unknown Source"))
+						if (stack[pos].getClassName().contains("xxgamehelper"))
 							break;
 					logger.error("Found a unhandled error:" + e + "\n"
 							+ e.getStackTrace()[pos]);
