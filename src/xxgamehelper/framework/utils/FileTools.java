@@ -102,15 +102,13 @@ public class FileTools {
 	}
 	
 	/***
-	 * Move a file or a directory to a new place
+	 * Move a file or a directory to a new place.
 	 * @param from The original address
 	 * @param to The target address
 	 * @param deleteOld Delete the old files or not
 	 */
 	public static void fileMove(String from, String to, boolean deleteOld){ 
-		File dir = new File(from); 
-		if (dir.isDirectory())
-			System.out.println("Moving:"+dir.getPath());
+		File dir = new File(from);
 		File[] files = dir.listFiles(); //List all files
 		if (files == null)
 			return; 
