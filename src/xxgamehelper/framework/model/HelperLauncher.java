@@ -1,5 +1,6 @@
 package xxgamehelper.framework.model;
 
+import java.io.File;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -61,10 +62,26 @@ public class HelperLauncher {
 				messenger.println((new Date()) + ": The helper thread is dead.");
 				messenger.println("Dump work files.");
 				logger.info("Start dumping error files.");
-				FileTools.fileMove(
+				FileTools.moveFile(
 						messenger.getWorkPath(),
 						messenger.getErrorDumpPath()+(new Date()).getTime(),
 						true);
+				File dumpPath = new File(messenger.getErrorDumpPath());
+				File[] errorFiles = dumpPath.listFiles();
+				if (errorFiles.length>10) {
+					logger.warn("There is too much error dump files," +
+							" try to delete the earliest.");
+					long earlies = Long.MAX_VALUE;
+					File earliesFile = null;
+					for (int i=0;i<errorFiles.length;i++) {
+						long errorTime = Long.parseLong(errorFiles[i].getName());
+						if (errorTime<earlies) {
+							earlies = errorTime;
+							earliesFile = errorFiles[i];
+						}
+					}
+					FileTools.deleteFile(earliesFile);
+				}
 				logger.info("Done");
 				messenger.println("Try to restart the helper thread");
 			} catch (InterruptedException e) {
