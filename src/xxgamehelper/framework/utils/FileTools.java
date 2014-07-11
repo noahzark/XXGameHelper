@@ -107,7 +107,7 @@ public class FileTools {
 	 * @param to The target address
 	 * @param deleteOld Delete the old files or not
 	 */
-	public static void fileMove(String from, String to, boolean deleteOld){ 
+	public static void moveFile(String from, String to, boolean deleteOld){ 
 		File dir = new File(from);
 		File[] files = dir.listFiles(); //List all files
 		if (files == null)
@@ -119,7 +119,7 @@ public class FileTools {
 		//Move files
 		for (int i = 0; i < files.length; i++) { 
 			if (files[i].isDirectory()) { 
-				fileMove(files[i].getPath(), to + "/" + files[i].getName(), deleteOld); 
+				moveFile(files[i].getPath(), to + "/" + files[i].getName(), deleteOld); 
 				if (deleteOld)
 					files[i].delete();
 			} 
@@ -132,6 +132,26 @@ public class FileTools {
 		}
 		if (deleteOld)
 			dir.delete();
-	} 
+	}
+	
+	/***
+	 * Delete a directory.
+	 * @param dir The target directory
+	 * @return True if all delete operations succeeded.
+	 */
+	public static boolean deleteFile(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            //Delete son directories
+            for (int i=0; i<children.length; i++) {
+                boolean success = deleteFile(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        //Delete the empty directory
+        return dir.delete();
+    }
 
 }
