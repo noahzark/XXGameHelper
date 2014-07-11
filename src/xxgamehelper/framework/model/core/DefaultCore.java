@@ -136,8 +136,9 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 					logger.error("Found a unhandled error:" + e);
 					out.showError(e);
 					break;
+				} finally {
+					this.cleanFiles();
 				}
-				this.cleanFiles();
 			}
 			this.postGame();
 		} catch (Exception e) {
