@@ -61,9 +61,7 @@ public class StringTools {
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
@@ -90,9 +88,7 @@ public class StringTools {
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		String[] strList = new String[list.size()];
 		strList = list.toArray(strList);
@@ -150,7 +146,9 @@ public class StringTools {
 	 */
 	public static int[] splitFraction(String fractionStr) {
 		String[] infos = fractionStr.split("/");
-		return new int[]{Integer.parseInt(infos[0]), Integer.parseInt(infos[1])};
+		return new int[]{
+				Integer.parseInt(infos[0]),
+				Integer.parseInt(infos[1])};
 	}
 	
 	/***
