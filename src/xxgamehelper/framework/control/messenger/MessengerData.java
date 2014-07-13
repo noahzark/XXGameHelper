@@ -1,8 +1,6 @@
 package xxgamehelper.framework.control.messenger;
 
 import java.io.File;
-import java.util.TreeMap;
-
 import xxgamehelper.framework.model.HelperFactory;
 import xxgamehelper.framework.model.client.WebClient;
 
@@ -10,12 +8,13 @@ import xxgamehelper.framework.model.client.WebClient;
  * The messenger class attributes.
  * @author LongFangzhou
  */
-public abstract class MessengerData {
+public abstract class MessengerData extends ConfigData{
 	
 	/***
 	 * Default messenger data constructor with some initial values.
 	 */
 	public MessengerData(String homeDirectory, HelperFactory helperFactory) {
+		super();
 		this.dataPath = homeDirectory + "/XXGameHelper/";
 		File workDir = new File(dataPath);
 		if (!workDir.exists())
@@ -28,8 +27,6 @@ public abstract class MessengerData {
 		this.errorDumpPath = "error";
 		this.betaMode = false;
 		this.debugMode = false;
-		this.helperConfig = new TreeMap<String, String>();
-		this.gameConfig = new TreeMap<String, String>();
 		this.helperFactory = helperFactory;
 	}
 	
@@ -169,47 +166,7 @@ public abstract class MessengerData {
 		this.verifyToken = verifyToken;
 	}
 	
-	/***
-	 * The helper configurations.
-	 */
-	private TreeMap<String, String> helperConfig;
 	
-	/**
-	 * @param helperConfig the helperConfig to add
-	 */
-	public void addHelperConfig(String key, String value) {
-		this.helperConfig.put(key, value);
-	}
-	
-	/***
-	 * Get a helper configuration using a key.
-	 * @param key The configuration key
-	 * @return The configuration value
-	 */
-	public String getHelperConfig(String key) {
-		return helperConfig.get(key);
-	}
-
-	/***
-	 * The game configurations.
-	 */
-	private TreeMap<String, String> gameConfig;
-	
-	/**
-	 * @param gameConfig the gameConfig to set
-	 */
-	public void addGameConfig(String key, String value) {
-		this.gameConfig.put(key, value);
-	}
-	
-	/***
-	 * Get a game configuration using a key.
-	 * @param key The configuration key
-	 * @return The configuration value
-	 */
-	public String getGameConfig(String key) {
-		return gameConfig.get(key);
-	}
 	
 	/***
 	 * The factory to build connections and cores.
