@@ -60,6 +60,7 @@ public class HelperLauncher {
 					Thread.sleep(checkInterval*1000);// Take a break to wait core thread update token
 				} while(messenger.isHelperAlive() && verifyToken != messenger.getVerifyToken());
 				messenger.println((new Date()) + ": The helper thread is dead.");
+				//TODO Move these to messenger
 				messenger.println("Dump work files.");
 				logger.info("Start dumping error files.");
 				FileTools.moveFile(
