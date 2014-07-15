@@ -140,7 +140,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 					for (;pos<stack.length-1;pos++)
 						if (stack[pos].getClassName().contains("xxgamehelper"))
 							break;
-					logger.error((new Date()) + "Found a unhandled error:" + e + "\n"
+					logger.error((new Date()).getTime() + "Found a unhandled error:" + e + "\n"
 							+ e.getStackTrace()[pos]);
 					out.showError(e);
 					break;
