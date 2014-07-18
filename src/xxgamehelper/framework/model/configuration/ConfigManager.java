@@ -1,18 +1,20 @@
 package xxgamehelper.framework.model.configuration;
 
-import java.io.File;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import xxgamehelper.framework.control.messenger.MessengerData;
 import xxgamehelper.framework.utils.XmlTools;
 
 public class ConfigManager {
 	
-	public static HelperConfig loadConfig(String configPath) {
+	public static HelperConfig loadConfig(String configPath, MessengerData messenger) {
 		Document doc = XmlTools.initDocument(configPath);
-		if (doc==null || !XmlTools.validateXml(new File("./HelperConfiguration.xsd"), new File(configPath)))
+		if (doc==null
+//TODO Use a better validate path
+//				|| !XmlTools.validateXml("./HelperConfiguration.xsd", configPath)
+			)
 			return null;
 		
 		Element rootElement = doc.getDocumentElement();
@@ -21,6 +23,9 @@ public class ConfigManager {
 				rootElement.getAttribute("ConfigName"),
 				rootElement.getAttribute("Author")
 		);
+		
+		if (!helperConfig.helperName.equals(messenger.getAPPName()))
+			return null;
 		
 		Node modeNode = XmlTools.getChildNodeByName(
 				rootElement, "ModeConfig");
