@@ -3,13 +3,19 @@ package xxgamehelper.framework.model.configuration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import xxgamehelper.framework.control.messenger.MessengerData;
 import xxgamehelper.framework.utils.XmlTools;
 
 public class ConfigManager {
 	
-	public static HelperConfig loadConfig(String configPath, MessengerData messenger) {
+	/***
+	 * The method to load some configurations to a messenger.
+	 * @param configPath The xml configuration file path
+	 * @param messenger The helper messenger
+	 * @return 
+	 */
+	public static HelperConfig loadConfig(String configPath, String appName) {
 		Document doc = XmlTools.initDocument(configPath);
 		if (doc==null
 //TODO Use a better validate path
@@ -24,7 +30,7 @@ public class ConfigManager {
 				rootElement.getAttribute("Author")
 		);
 		
-		if (!helperConfig.helperName.equals(messenger.getAPPName()))
+		if (!helperConfig.helperName.equals(appName))
 			return null;
 		
 		Node modeNode = XmlTools.getChildNodeByName(
@@ -38,7 +44,24 @@ public class ConfigManager {
 		Node gameNode = XmlTools.getChildNodeByName(
 				rootElement, "GameConfig");
 		
-		//TODO Load game configs
+		NodeList childNodes = gameNode.getChildNodes();
+		for(int j=0;j<childNodes.getLength();j++){
+			Node childNode=childNodes.item(j);
+			if (childNode instanceof Element) {
+				Node nodeName = XmlTools.getChildNodeByName(childNode, "Name");
+				Node nodeValue = XmlTools.getChildNodeByName(childNode, "Value");
+				if (nodeName!=null && nodeValue!=null) {
+					String key = nodeName.getFirstChild().getNodeValue();
+					String value = nodeValue.getFirstChild().getNodeValue();
+					if (childNode.getNodeName().equals("StrConfig"))
+						helperConfig.game.strConfig.setConfig(key, value);
+					else if (childNode.getNodeName().equals("NumConfig"))
+						helperConfig.game.numConfig.setConfig(key, Integer.parseInt(value));
+					else if (childNode.getNodeName().equals("FloatConfig"))
+						helperConfig.game.floatConfig.setConfig(key, Float.parseFloat(value));
+				}
+			}
+		}
 		return helperConfig;
 	}
 	
