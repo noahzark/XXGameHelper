@@ -28,6 +28,16 @@ public class XmlTools {
 	
 	/***
 	 * The method to validate xml files using a schema.
+	 * @param xsdPath Schema file path
+	 * @param xmlPath XML file path
+	 * @return True if the xml file passed validation, otherwise false.
+	 */
+	public static boolean validateXml(String xsdPath,String xmlPath) {
+		return XmlTools.validateXml(new File(xsdPath), new File(xmlPath));
+	}
+	
+	/***
+	 * The method to validate xml files using a schema.
 	 * @param xsdSchema Schema file
 	 * @param xmlData Xml file
 	 * @return True if the xml file passed validation, otherwise false.
