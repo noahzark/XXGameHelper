@@ -94,21 +94,4 @@ public class XmlTools {
 		return null;
 	}
 	
-	/***
-	 * Search a attribute with a name key.
-	 * @param node Target node 
-	 * @param name Search key
-	 * @return the child node if found, otherwise null.
-	 */
-	public static String getAttributeByName(Node node, String name) {
-		NamedNodeMap attributes=node.getAttributes();
-		for(int i=0;i<attributes.getLength();i++){
-			Node attribute = attributes.item(i);
-			if (attribute.getNodeName().equals(name))
-				return attribute.getNodeValue();
-		}
-		return null;
-	}
-	
-
 }
