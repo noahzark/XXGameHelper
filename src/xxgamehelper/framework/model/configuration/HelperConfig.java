@@ -32,4 +32,11 @@ public final class HelperConfig {
 		this.configName = configName;
 		this.author = author;
 	}
+	
+	public String toString(){
+		return "A " + configName
+				+ " configuration designed by " + author
+				+ " for " + helperName
+				+ ".";
+	}
 }
