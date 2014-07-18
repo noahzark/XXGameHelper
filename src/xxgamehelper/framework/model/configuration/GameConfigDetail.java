@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author LongFangzhou
  * @param <ValueType> Game configuration value type
  */
-public final class GameConfigType<ValueType> {
+public final class GameConfigDetail<ValueType> {
 	
 	private final HashMap<String, ValueType> map
 	= new HashMap<String, ValueType>();

@@ -9,19 +9,19 @@ public class GameConfig {
 	/***
 	 * The string configurations of game.
 	 */
-	public final GameConfigType<String> strConfig
-		= new GameConfigType<String>();
+	public final GameConfigDetail<String> strConfig
+		= new GameConfigDetail<String>();
 	
 	/***
 	 * The integer configurations of game.
 	 */
-	public final GameConfigType<Integer> numConfig
-		= new GameConfigType<Integer>();
+	public final GameConfigDetail<Integer> numConfig
+		= new GameConfigDetail<Integer>();
 	
 	/***
 	 * The float configurations of game.
 	 */
-	public final GameConfigType<Float> floatConfig
-		= new GameConfigType<Float>();
+	public final GameConfigDetail<Float> floatConfig
+		= new GameConfigDetail<Float>();
 
 }
