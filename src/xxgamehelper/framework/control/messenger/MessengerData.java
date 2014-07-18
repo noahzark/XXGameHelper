@@ -3,6 +3,8 @@ package xxgamehelper.framework.control.messenger;
 import java.io.File;
 import xxgamehelper.framework.model.HelperFactory;
 import xxgamehelper.framework.model.client.WebClient;
+import xxgamehelper.framework.model.configuration.ConfigManager;
+import xxgamehelper.framework.model.configuration.HelperConfig;
 
 /***
  * The messenger class attributes.
@@ -23,6 +25,7 @@ public abstract class MessengerData extends ConfigData{
 			if (!workDir.isDirectory())
 				System.out.println("Work Directory error.");
 		
+		this.homePath = homeDirectory + "/";
 		this.workPath = "work";
 		this.errorDumpPath = "error";
 		this.betaMode = false;
@@ -51,6 +54,8 @@ public abstract class MessengerData extends ConfigData{
 	 * @return Program name string
 	 */
 	public abstract String getAPPName();
+	
+	private String homePath;
 	
 	/***
 	 * The directory which contains the application data.
@@ -94,6 +99,14 @@ public abstract class MessengerData extends ConfigData{
 	 */
 	public void setWorkPath(String workPath) {
 		this.workPath = workPath;
+	}
+	
+	public HelperConfig helperConfig;
+	
+	public boolean loadConfig(String configFileName) {
+		this.helperConfig = ConfigManager.loadConfig(
+				homePath + configFileName, this);
+		return this.helperConfig != null;
 	}
 	
 	/***
