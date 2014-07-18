@@ -25,7 +25,7 @@ public final class HelperConfig {
 	/***
 	 * Game configurations.
 	 */
-	public GameConfig game;
+	public GameConfig game = new GameConfig();
 	
 	public HelperConfig(String helperName, String configName, String author) {
 		this.helperName = helperName;
