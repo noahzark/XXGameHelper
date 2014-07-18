@@ -15,4 +15,9 @@ public final class ModeConfig {
 		this.isBetaMode = isBetaMode;
 	}
 	
+	public String showConfig() {
+		return "Debug Mode: " + isDebugMode
+				+ "\tBeta Mode: " + isBetaMode;
+	}
+	
 }
