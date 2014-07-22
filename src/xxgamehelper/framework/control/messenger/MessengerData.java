@@ -124,7 +124,12 @@ public abstract class MessengerData extends ConfigData{
 	public boolean loadConfig(String configFileName) {
 		helperConfig = ConfigManager.loadConfig(
 				homePath + configFileName, this.getAPPName());
-		return this.helperConfig != null;
+		if (helperConfig!=null) {
+			setDebugMode(helperConfig.mode.isDebugMode);
+			setBetaMode(helperConfig.mode.isBetaMode);
+			return true;
+		}
+		return false;
 	}
 	
 	/***
