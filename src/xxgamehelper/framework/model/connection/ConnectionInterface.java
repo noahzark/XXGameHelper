@@ -9,6 +9,12 @@ public abstract interface ConnectionInterface {
 	public void useProxy(String address, int port);
 	
 	/***
+	 * Load the helper configuration before make a connect operation.
+	 * @return True if the configuration is successful loaded.
+	 */
+	public boolean loadHelperConfig();
+	
+	/***
 	 * Do something befroe login to the server.
 	 * @return True while connect operation is done. If errors occurs, return false.
 	 */
