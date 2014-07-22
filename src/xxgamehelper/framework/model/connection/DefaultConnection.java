@@ -34,8 +34,22 @@ public abstract class DefaultConnection extends Connection {
 		this.webclient = webclient;
 	}
 	
-	public boolean check() {
+	public boolean preConnect() {
+		return true;
+	};
+	
+	public boolean connect() {
+		if (!this.preConnect())
+			return false;
+		if (!this.login())
+			return false;
+		if (!this.check())
+			return false;
 		this.saveConnection();
+		return true;
+	}
+	
+	public boolean check() {
 		return true;
 	}
 	
