@@ -49,10 +49,6 @@ public abstract class DefaultConnection extends Connection {
 		return true;
 	}
 	
-	public boolean check() {
-		return true;
-	}
-	
 	public void saveConnection() {
 		this.messenger.setWebClient(this.webclient);
 	}
