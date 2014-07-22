@@ -12,7 +12,7 @@ public abstract interface ConnectionInterface {
 	 * Login to the server
 	 * @return True while connect operation is done. If errors occurs, return false.
 	 */
-	public boolean connect();
+	public boolean doConnect();
 	
 	/***
 	 * Check and save the connection
