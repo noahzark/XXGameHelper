@@ -31,6 +31,7 @@ public abstract class MessengerData extends ConfigData{
 		this.betaMode = false;
 		this.debugMode = false;
 		this.helperFactory = helperFactory;
+		this.requireConfig = false;
 	}
 	
 	private WebClient webClient;
@@ -99,6 +100,23 @@ public abstract class MessengerData extends ConfigData{
 	 */
 	public void setWorkPath(String workPath) {
 		this.workPath = workPath;
+	}
+	
+	/***
+	 * Whether the helper is requiring a manual configurations.
+	 */
+	private boolean requireConfig;
+	
+	/***
+	 * Tells whether the helper is requiring a configuration.
+	 * @return True if it's required
+	 */
+	public boolean isRequireConfig() {
+		return requireConfig;
+	}
+
+	public void setRequireConfig(boolean requireConfig) {
+		this.requireConfig = requireConfig;
 	}
 	
 	public HelperConfig helperConfig;
