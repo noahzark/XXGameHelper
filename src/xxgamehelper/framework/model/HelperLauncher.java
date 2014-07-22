@@ -31,8 +31,7 @@ public class HelperLauncher {
 		messenger.setHelperThread(null);
 		Connection tscon = messenger.getHelperFactory().buildConnection(messenger);
 		logger.info("Try to lanch a helper.");
-		if (tscon.connect())
-			if (tscon.check()){
+		if (tscon.connect()) {
 				Core core = messenger.getHelperFactory().buildCore(messenger);
 				messenger.setHelperThread(new Thread(core));
 				messenger.startHelper();
