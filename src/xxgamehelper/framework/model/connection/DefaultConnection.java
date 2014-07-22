@@ -34,7 +34,16 @@ public abstract class DefaultConnection extends Connection {
 		this.webclient = webclient;
 	}
 	
+	public boolean loadHelperConfig() {
+		return false;
+	}
+	
 	public boolean preConnect() {
+		if (messenger.isRequireConfig())
+			if (!this.loadHelperConfig()){
+				messenger.showError("Load helper config failed");
+				return false;
+			}
 		return true;
 	};
 	
