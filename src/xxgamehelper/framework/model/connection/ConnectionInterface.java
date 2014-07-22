@@ -9,10 +9,22 @@ public abstract interface ConnectionInterface {
 	public void useProxy(String address, int port);
 	
 	/***
+	 * Do something befroe login to the server.
+	 * @return True while connect operation is done. If errors occurs, return false.
+	 */
+	public boolean preConnect();
+	
+	/***
 	 * Login to the server
 	 * @return True while connect operation is done. If errors occurs, return false.
 	 */
-	public boolean doConnect();
+	public boolean login();
+	
+	/***
+	 * Server connection operations.
+	 * @return True while connect operation is done. If errors occurs, return false.
+	 */
+	public boolean connect();
 	
 	/***
 	 * Check and save the connection
