@@ -131,12 +131,7 @@ public class StringTools {
 	 * @return The number
 	 */
 	public static int countString(String key, String source) {
-		int n = 0;
-		while (source.contains(key)) {
-			source = source.replaceFirst(key, "*");
-			n++;
-		}
-		return n;
+		return source.split(key).length - 1;
 	}
 	
 	/***
