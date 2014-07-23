@@ -84,7 +84,7 @@ public abstract class DefaultMessenger extends Messenger {
 		}
 	}
 	
-	public void dumpErrorFiles() {
+	public void dumpWorkFiles() {
 		println("Dump work files.");
 		logger.info("Start dumping error files.");
 		FileTools.moveFile(
