@@ -1,10 +1,12 @@
 package xxgamehelper.framework.control.messenger;
 
+import java.io.File;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
 
 import xxgamehelper.framework.model.HelperFactory;
+import xxgamehelper.framework.utils.FileTools;
 import xxgamehelper.framework.utils.StringTools;
 
 /***
@@ -80,6 +82,32 @@ public abstract class DefaultMessenger extends Messenger {
 			this.helperThread.interrupt();
 			this.helperThread = null;
 		}
+	}
+	
+	public void dumpErrorFiles() {
+		println("Dump work files.");
+		logger.info("Start dumping error files.");
+		FileTools.moveFile(
+				getWorkPath(),
+				getErrorDumpPath()+(new Date()).getTime(),
+				true);
+		File dumpPath = new File(getErrorDumpPath());
+		File[] errorFiles = dumpPath.listFiles();
+		if (errorFiles.length>10) {
+			logger.warn("There is too much error dump files," +
+					" try to delete the earliest.");
+			long earlies = Long.MAX_VALUE;
+			File earliesFile = null;
+			for (int i=0;i<errorFiles.length;i++) {
+				long errorTime = Long.parseLong(errorFiles[i].getName());
+				if (errorTime<earlies) {
+					earlies = errorTime;
+					earliesFile = errorFiles[i];
+				}
+			}
+			FileTools.deleteFile(earliesFile);
+		}
+		logger.info("Done");
 	}
 
 	public String findString(String key, String fileName) {

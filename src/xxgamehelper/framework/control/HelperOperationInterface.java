@@ -35,4 +35,9 @@ public interface HelperOperationInterface {
 	 */
 	public void releaseHelperThread();
 	
+	/***
+	 * Dump the work files if error occurs.
+	 */
+	public void dumpWorkFiles();
+	
 }
