@@ -101,7 +101,10 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	}
 	
 	public void updateToken() {
-		this.messenger.setVerifyToken(this.randomer.nextLong());
+		Long token = 0L;
+		while (token==0L)
+			token = this.randomer.nextLong();
+		this.messenger.setVerifyToken(token);
 	}
 	
 	private long generateRestTime(int basicRestTime, int extraRestTime){
@@ -154,6 +157,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	
 	@Override
 	public void postGame() {
+		this.messenger.setVerifyToken(0);
 	}
 }
 

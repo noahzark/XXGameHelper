@@ -58,7 +58,10 @@ public class HelperLauncher {
 					Thread.sleep(checkInterval*1000);// Take a break to wait core thread update token
 				} while(messenger.isHelperAlive() && verifyToken != messenger.getVerifyToken());
 				messenger.println((new Date()) + ": The helper thread is dead.");
-				messenger.dumpWorkFiles();
+				//If a verify token equals zero, it aborts normally and
+				//don't need to dump work files.
+				if (messenger.getVerifyToken()!=0L)
+					messenger.dumpWorkFiles();
 				messenger.println("Try to restart the helper thread");
 			} catch (InterruptedException e) {
 				messenger.showError(e);
