@@ -29,6 +29,13 @@ public interface WebClientInterface {
 			Map<String, String> headers);
 	
 	/***
+	 * Convert a map to a name value pair list.
+	 * @param paramsMap The parameters map
+	 * @return Name value pair list
+	 */
+	public List<NameValuePair> generateFormParams(Map<String, String> paramsMap);
+	
+	/***
 	 * Send a request to the server and get response.
 	 * @param host The target host
 	 * @param req A HttpGet/Post request
@@ -65,16 +72,6 @@ public interface WebClientInterface {
 	public void useProxy(String address, int port);
 	
 	/***
-	 * Use GET method to obtain web content.
-	 * @param host The server
-	 * @param actionName Remote action
-	 * @param fileName A file to save those content
-	 * @return If the operation succeed, return true. Otherwise false
-	 */
-	public boolean doGet(HttpHost host, String actionName,
-			String fileName);
-	
-	/***
 	 * Use GET method to obtain web content with some request headers.
 	 * @param host The server
 	 * @param actionName Remote action
@@ -87,25 +84,29 @@ public interface WebClientInterface {
 			String fileName);
 	
 	/***
-	 * Use POST method to obtain web content.
+	 * Use POST method to obtain web content with some request headers.
 	 * @param host The server
 	 * @param actionName Remote action
-	 * @param formParams Request parameters
+	 * @param paramsMap Request parameters map
+	 * @param headers The request headers map
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false
 	 */
 	public boolean doPost(HttpHost host, String actionName,
-			List<NameValuePair> formParams, String fileName);
+			Map<String, String> paramsMap,
+			Map<String, String> headers,
+			String fileName);
 	
 	/***
 	 * Use POST method to obtain web content with some request headers.
 	 * @param host The server
 	 * @param actionName Remote action
-	 * @param formParams Request parameters
+	 * @param paramsMap Request parameters map
 	 * @param headers The request headers map
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false
 	 */
+	@Deprecated
 	public boolean doPost(HttpHost host, String actionName,
 			List<NameValuePair> formParams,
 			Map<String, String> headers,
