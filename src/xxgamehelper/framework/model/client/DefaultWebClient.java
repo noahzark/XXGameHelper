@@ -73,6 +73,9 @@ public class DefaultWebClient extends WebClient {
 
 	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
 			String fileName) {
+		if (!fileName.contains(".")){
+			fileName += ".html";
+		}
 		HttpResponse rsp = this.sendRequest(host, req);
 		if (rsp==null || rsp.getStatusLine().getStatusCode()>=400) {
 			req.releaseConnection();
@@ -119,6 +122,7 @@ public class DefaultWebClient extends WebClient {
 	@Override
 	public boolean doGet(HttpHost host, String actionName,
 			Map<String, String> headers, String fileName) {
+		
 		HttpGet req = new HttpGet(actionName);
 		this.injectHeaders(req, headers);
 		return saveRequestToFile(host, req, fileName);

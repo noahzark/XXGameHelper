@@ -54,9 +54,6 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	}
 	
 	public boolean doGet(String remoteAddress, Map<String, String> headers, String fileName) {
-		if (!fileName.contains(".")){
-			fileName += ".html";
-		}
 		if (this.preRequest(remoteAddress, fileName)){
 			return webclient.doGet(server, remoteAddress, headers, fileName);
 		}
@@ -70,9 +67,6 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	
 	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			Map<String, String> headers, String fileName){
-		if (!fileName.contains(".")){
-			fileName += ".html";
-		}
 		if (this.preRequest(remoteAddress, fileName)){
 			return webclient.doPost(server, remoteAddress, formParams, headers, fileName);
 		}
