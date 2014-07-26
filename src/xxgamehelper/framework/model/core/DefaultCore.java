@@ -60,6 +60,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 		return false;
 	}
 	
+	@Deprecated
 	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			String fileName){
 		return this.doPost(remoteAddress, formParams, null, fileName);
