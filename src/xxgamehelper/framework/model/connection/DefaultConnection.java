@@ -22,7 +22,7 @@ import xxgamehelper.framework.utils.CoreEntityUtils;
  */
 public abstract class DefaultConnection extends Connection {
 	
-	private OutputInterface out;
+	public OutputInterface out;
 	
 	public void useProxy(String address, int port) {
 		HttpHost proxy = new HttpHost(address, port);
