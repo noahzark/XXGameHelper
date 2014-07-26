@@ -25,7 +25,7 @@ import xxgamehelper.framework.utils.FileTools;
 /***
  * The web client of game helper.
  * @author LongFangzhou
- * @version 0.3
+ * @version 0.4
  */
 public class DefaultWebClient extends WebClient {
 	
