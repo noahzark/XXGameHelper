@@ -1,9 +1,6 @@
 package xxgamehelper.framework.model;
 
-import java.util.List;
 import java.util.Map;
-
-import org.apache.http.NameValuePair;
 
 /***
  * Some methods to communicate with server.
@@ -43,7 +40,7 @@ public interface NetOperationInterface {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	boolean doPost(String remoteAddress, List<NameValuePair> formParams,
+	boolean doPost(String remoteAddress, Map<String, String> formParams,
 			String fileName);
 	
 	/***
@@ -54,7 +51,7 @@ public interface NetOperationInterface {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	boolean doPost(String remoteAddress, List<NameValuePair> formParams,
+	boolean doPost(String remoteAddress, Map<String, String> formParams,
 			Map<String, String> headers, String fileName);
 
 }
