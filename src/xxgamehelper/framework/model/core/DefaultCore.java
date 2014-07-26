@@ -13,7 +13,7 @@ import xxgamehelper.framework.control.messenger.Messenger;
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.9
+ * @version 0.91
  */
 public abstract class DefaultCore extends Core implements SearchStringInterface {
 
@@ -65,10 +65,28 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 		return this.doPost(remoteAddress, formParams, null, fileName);
 	}
 	
+	@Deprecated
 	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			Map<String, String> headers, String fileName){
 		if (this.preRequest(remoteAddress, fileName)){
 			return webclient.doPost(server, remoteAddress, formParams, headers, fileName);
+		}
+		return false;
+	}
+	
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap, String fileName) {
+		if (this.preRequest(remoteAddress, fileName)){
+			return webclient.doPost(server, remoteAddress, paramsMap, null, fileName);
+		}
+		return false;
+	}
+	
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap,
+			Map<String, String> headers, String fileName){
+		if (this.preRequest(remoteAddress, fileName)){
+			return webclient.doPost(server, remoteAddress, paramsMap, headers, fileName);
 		}
 		return false;
 	}
