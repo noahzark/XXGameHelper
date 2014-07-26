@@ -32,7 +32,7 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean getPage(String remoteAddress, String fileName);
+	abstract boolean doGet(String remoteAddress, String fileName);
 	
 	/***
 	 * Use GET method to obtain web content with some request headers.
@@ -41,7 +41,7 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean getPage(String remoteAddress, Map<String, String> headers
+	abstract boolean doGet(String remoteAddress, Map<String, String> headers
 			, String fileName);
 	
 	/***
@@ -51,7 +51,7 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+	abstract boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			String fileName);
 	
 	/***
@@ -62,7 +62,7 @@ public abstract interface CoreInterface extends Runnable {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	abstract boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+	abstract boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			Map<String, String> headers, String fileName);
 	
 	/***

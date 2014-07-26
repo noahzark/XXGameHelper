@@ -65,11 +65,11 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 		}
 	}
 	
-	public boolean getPage(String remoteAddress, String fileName) {
-		return this.getPage(remoteAddress, null, fileName);
+	public boolean doGet(String remoteAddress, String fileName) {
+		return this.doGet(remoteAddress, null, fileName);
 	}
 	
-	public boolean getPage(String remoteAddress, Map<String, String> headers, String fileName) {
+	public boolean doGet(String remoteAddress, Map<String, String> headers, String fileName) {
 		if (!fileName.contains(".")){
 			fileName += ".html";
 		}
@@ -81,12 +81,12 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 		return false;
 	}
 	
-	public boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			String fileName){
-		return this.postPage(remoteAddress, formParams, null, fileName);
+		return this.doPost(remoteAddress, formParams, null, fileName);
 	}
 	
-	public boolean postPage(String remoteAddress, List<NameValuePair> formParams,
+	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
 			Map<String, String> headers, String fileName){
 		if (!fileName.contains(".")){
 			fileName += ".html";
