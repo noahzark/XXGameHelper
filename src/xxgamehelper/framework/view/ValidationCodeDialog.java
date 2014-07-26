@@ -54,7 +54,8 @@ public class ValidationCodeDialog extends javax.swing.JDialog {
 			String fileName,
 			final ActionListener codeListener) {
 		try {
-			final Image image = ImageIO.read(new File(fileName));
+			final Image image = ImageIO.read(new File(
+					messenger.getWorkPath()+fileName));
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					JFrame frame = new JFrame();
@@ -109,6 +110,7 @@ public class ValidationCodeDialog extends javax.swing.JDialog {
 								evt,
 								evt.getID(),
 								txtValidationCode.getText()));
+						dispose();
 					}
 				});
 			}
