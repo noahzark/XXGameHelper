@@ -3,16 +3,23 @@ package xxgamehelper.framework.model.client;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.params.CoreProtocolPNames;
 
 import xxgamehelper.framework.control.messenger.Messenger;
+import xxgamehelper.framework.utils.CoreEntityUtils;
 import xxgamehelper.framework.utils.FileTools;
 
 /***
@@ -38,6 +45,15 @@ public class DefaultWebClient extends WebClient {
 		}
 		req.addHeader("Cookie", sb.toString());
 		System.out.println("Cookies finished.");
+	}
+	
+	public void injectHeaders(HttpRequestBase request, Map<String, String> headers) {
+		if (headers != null) {
+			Set<Entry<String, String>> entries = headers.entrySet();
+			for (Entry<String, String> entry : entries) {
+				request.addHeader(entry.getKey(), entry.getValue());
+			}
+		}
 	}
 	
 	public HttpResponse sendRequest(HttpHost host, HttpRequestBase req) {
@@ -92,6 +108,36 @@ public class DefaultWebClient extends WebClient {
 	public void setUserAgent(String ua) {
 		this.getParams().setParameter(
 				CoreProtocolPNames.USER_AGENT, ua);
+	}
+
+	@Override
+	public boolean doGet(HttpHost host, String actionName,
+			String fileName) {
+		return this.doGet(host, actionName, null, fileName);
+	}
+
+	@Override
+	public boolean doGet(HttpHost host, String actionName,
+			Map<String, String> headers, String fileName) {
+		HttpGet req = new HttpGet(actionName);
+		this.injectHeaders(req, headers);
+		return saveRequestToFile(host, req, fileName);
+	}
+
+	@Override
+	public boolean doPost(HttpHost host, String actionName,
+			List<NameValuePair> formParams, String fileName) {
+		return doPost(host, actionName, formParams, null, fileName);
+	}
+
+	@Override
+	public boolean doPost(HttpHost host, String actionName,
+			List<NameValuePair> formParams, Map<String, String> headers,
+			String fileName) {
+		HttpPost req = new HttpPost(actionName);
+		this.injectHeaders(req, headers);
+		req.setEntity(CoreEntityUtils.generateEntity(formParams));
+		return saveRequestToFile(host, req, fileName);
 	}
 
 }
