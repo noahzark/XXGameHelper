@@ -2,14 +2,12 @@ package xxgamehelper.framework.model.connection;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
-
 import xxgamehelper.framework.control.OutputInterface;
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.model.client.WebClient;
@@ -18,7 +16,7 @@ import xxgamehelper.framework.utils.CoreEntityUtils;
 /***
  * A sample of Connection's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.3
+ * @version 0.4
  */
 public abstract class DefaultConnection extends Connection {
 	
@@ -98,15 +96,19 @@ public abstract class DefaultConnection extends Connection {
 		return false;
 	}
 	
-	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
-			String fileName){
-		return this.doPost(remoteAddress, formParams, null, fileName);
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap, String fileName) {
+		if (this.preRequest(remoteAddress, fileName)){
+			return webclient.doPost(server, remoteAddress, paramsMap, null, fileName);
+		}
+		return false;
 	}
 	
-	public boolean doPost(String remoteAddress, List<NameValuePair> formParams,
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap,
 			Map<String, String> headers, String fileName){
 		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doPost(server, remoteAddress, formParams, headers, fileName);
+			return webclient.doPost(server, remoteAddress, paramsMap, headers, fileName);
 		}
 		return false;
 	}
