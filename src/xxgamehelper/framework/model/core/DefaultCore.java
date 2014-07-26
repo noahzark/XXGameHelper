@@ -3,24 +3,17 @@ package xxgamehelper.framework.model.core;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
-
 import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.log4j.Logger;
 
 import xxgamehelper.framework.control.SearchStringInterface;
 import xxgamehelper.framework.control.messenger.Messenger;
-import xxgamehelper.framework.utils.CoreEntityUtils;
 
 /***
  * A sample of Core's implement to provide basic/default functions.
  * @author LongFangzhou
- * @version 0.8
+ * @version 0.9
  */
 public abstract class DefaultCore extends Core implements SearchStringInterface {
 
@@ -56,15 +49,6 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 		return true;
 	}
 	
-	public void injectHeaders(HttpRequestBase request, Map<String, String> headers) {
-		if (headers != null) {
-			Set<Entry<String, String>> entries = headers.entrySet();
-			for (Entry<String, String> entry : entries) {
-				request.addHeader(entry.getKey(), entry.getValue());
-			}
-		}
-	}
-	
 	public boolean doGet(String remoteAddress, String fileName) {
 		return this.doGet(remoteAddress, null, fileName);
 	}
@@ -74,9 +58,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 			fileName += ".html";
 		}
 		if (this.preRequest(remoteAddress, fileName)){
-			HttpGet req = new HttpGet(remoteAddress);
-			this.injectHeaders(req, headers);
-			return webclient.saveRequestToFile(server, req, fileName);
+			return webclient.doGet(server, remoteAddress, headers, fileName);
 		}
 		return false;
 	}
@@ -92,10 +74,7 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 			fileName += ".html";
 		}
 		if (this.preRequest(remoteAddress, fileName)){
-			HttpPost req = new HttpPost(remoteAddress);
-			this.injectHeaders(req, headers);
-			req.setEntity(CoreEntityUtils.generateEntity(formParams));
-			return webclient.saveRequestToFile(server, req, fileName);
+			return webclient.doPost(server, remoteAddress, formParams, headers, fileName);
 		}
 		return false;
 	}
