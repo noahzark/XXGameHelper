@@ -76,18 +76,18 @@ public interface WebClientInterface {
 	 * Use Get method to download a file.
 	 * @param src File URL
 	 * @param filePath The directory to save the file
-	 * @param fileName The saved file name
+	 * @return If the operation succeed, return the file name. Otherwise null.
 	 */
-	public boolean downloadFile(String src, String filePath);
+	public String downloadFile(String src, String filePath);
 	
 	/***
 	 * Use Get method to download a file.
 	 * @param src File URL
 	 * @param filePath The directory to save the file
 	 * @param fileName The saved file name
-	 * @return If the operation succeed, return true. Otherwise false
+	 * @return If the operation succeed, return the file name. Otherwise null.
 	 */
-	public boolean downloadFile(String src, String filePath, String fileName);
+	public String downloadFile(String src, String filePath, String fileName);
 	
 	/***
 	 * Use GET method to obtain web content with some request headers.

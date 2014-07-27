@@ -28,7 +28,7 @@ import xxgamehelper.framework.utils.StringTools;
 /***
  * The web client of game helper.
  * @author LongFangzhou
- * @version 0.5
+ * @version 0.6
  */
 public class DefaultWebClient extends WebClient {
 	
@@ -159,15 +159,17 @@ public class DefaultWebClient extends WebClient {
 		return saveRequestToFile(host, req, this.messenger.getWorkPath(), fileName);
 	}
 	
-	public boolean downloadFile(String src, String filePath) {
+	public String downloadFile(String src, String filePath) {
 		String saveName = src.substring(src.lastIndexOf('/')+1);
 		return this.downloadFile(src, filePath, saveName);
 	}
 
 	@Override
-	public boolean downloadFile(String src, String filePath, String fileName) {
+	public String downloadFile(String src, String filePath, String fileName) {
 		HttpHost picHost = new HttpHost(StringTools.sortString(src, "//", '/'));
-		return this.doGet(picHost, src, null, filePath, fileName);
+		if (this.doGet(picHost, src, null, filePath, fileName))
+			return fileName;
+		return null;
 	}
 
 }
