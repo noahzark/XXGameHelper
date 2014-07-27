@@ -30,8 +30,19 @@ public interface NetOperationInterface {
 	 * @param fileName A file to save those content
 	 * @return If the operation succeed, return true. Otherwise false.
 	 */
-	boolean doGet(String remoteAddress, Map<String, String> headers
-			, String fileName);
+	boolean doGet(String remoteAddress, Map<String, String> headers,
+			String fileName);
+	
+	/***
+	 * Use GET method to obtain web content with some request headers.
+	 * @param remoteAddress Remote net address
+	 * @param headers The request headers
+	 * @param filePath The path to save response file
+	 * @param fileName A file to save those content
+	 * @return If the operation succeed, return true. Otherwise false.
+	 */
+	boolean doGet(String remoteAddress, Map<String, String> headers,
+			String filePath, String fileName);
 	
 	/***
 	 * Use POST method to obtain web content.
@@ -53,5 +64,19 @@ public interface NetOperationInterface {
 	 */
 	boolean doPost(String remoteAddress, Map<String, String> formParams,
 			Map<String, String> headers, String fileName);
+
+	/***
+	 * Use POST method to obtain web content with some request headers.
+	 * @param remoteAddress Remote net address
+	 * @param formParams To save the parameters
+	 * @param headers The request headers
+	 * @param filePath The path to save response file
+	 * @param fileName A file to save those content
+	 * @return If the operation succeed, return true. Otherwise false.
+	 */
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap,
+			Map<String, String> headers,
+			String filePath, String fileName);
 
 }

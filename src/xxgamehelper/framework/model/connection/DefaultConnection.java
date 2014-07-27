@@ -90,25 +90,37 @@ public abstract class DefaultConnection extends Connection {
 	}
 	
 	public boolean doGet(String remoteAddress, Map<String, String> headers, String fileName) {
+		return this.doGet(remoteAddress, headers,
+				this.messenger.getWorkPath(), fileName);
+	}
+	
+	public boolean doGet(String remoteAddress, Map<String, String> headers,
+			String filePath, String fileName) {
 		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doGet(server, remoteAddress, headers, fileName);
+			return webclient.doGet(server, remoteAddress, headers,
+					this.messenger.getWorkPath(), fileName);
 		}
 		return false;
 	}
 	
 	public boolean doPost(String remoteAddress,
 			Map<String, String> paramsMap, String fileName) {
-		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doPost(server, remoteAddress, paramsMap, null, fileName);
-		}
-		return false;
+		return this.doPost(remoteAddress, paramsMap, null, fileName);
 	}
 	
 	public boolean doPost(String remoteAddress,
 			Map<String, String> paramsMap,
 			Map<String, String> headers, String fileName){
+		return this.doPost(remoteAddress, paramsMap, headers,
+				this.messenger.getWorkPath(), fileName);
+	}
+	
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap,
+			Map<String, String> headers,
+			String filePath, String fileName){
 		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doPost(server, remoteAddress, paramsMap, headers, fileName);
+			return webclient.doPost(server, remoteAddress, paramsMap, headers, filePath, fileName);
 		}
 		return false;
 	}
@@ -126,7 +138,8 @@ public abstract class DefaultConnection extends Connection {
 			List<NameValuePair> formParams, String fileName) {
 		HttpEntity entity = CoreEntityUtils.generateEntity(formParams);
 		req.setEntity(entity);
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req,
+				this.messenger.getWorkPath(), fileName);
 	}
 	
 	/***
@@ -138,7 +151,8 @@ public abstract class DefaultConnection extends Connection {
 	 */
 	@Deprecated
 	public boolean doGet(HttpHost host, HttpGet req, String fileName) {
-		return this.webclient.saveRequestToFile(host, req, fileName);
+		return this.webclient.saveRequestToFile(host, req,
+				messenger.getWorkPath(), fileName);
 	}
 	
 }

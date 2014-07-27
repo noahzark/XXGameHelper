@@ -54,8 +54,15 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	}
 	
 	public boolean doGet(String remoteAddress, Map<String, String> headers, String fileName) {
+		return this.doGet(remoteAddress, headers,
+				this.messenger.getWorkPath(), fileName);
+	}
+	
+	public boolean doGet(String remoteAddress, Map<String, String> headers,
+			String filePath, String fileName) {
 		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doGet(server, remoteAddress, headers, fileName);
+			return webclient.doGet(server, remoteAddress, headers,
+					this.messenger.getWorkPath(), fileName);
 		}
 		return false;
 	}
@@ -77,17 +84,22 @@ public abstract class DefaultCore extends Core implements SearchStringInterface 
 	
 	public boolean doPost(String remoteAddress,
 			Map<String, String> paramsMap, String fileName) {
-		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doPost(server, remoteAddress, paramsMap, null, fileName);
-		}
-		return false;
+		return this.doPost(remoteAddress, paramsMap, null, fileName);
 	}
 	
 	public boolean doPost(String remoteAddress,
 			Map<String, String> paramsMap,
 			Map<String, String> headers, String fileName){
+		return this.doPost(remoteAddress, paramsMap, headers,
+				this.messenger.getWorkPath(), fileName);
+	}
+	
+	public boolean doPost(String remoteAddress,
+			Map<String, String> paramsMap,
+			Map<String, String> headers,
+			String filePath, String fileName) {
 		if (this.preRequest(remoteAddress, fileName)){
-			return webclient.doPost(server, remoteAddress, paramsMap, headers, fileName);
+			return webclient.doPost(server, remoteAddress, paramsMap, headers, filePath, fileName);
 		}
 		return false;
 	}
