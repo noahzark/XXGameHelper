@@ -23,6 +23,7 @@ import org.apache.http.params.CoreProtocolPNames;
 import xxgamehelper.framework.control.messenger.Messenger;
 import xxgamehelper.framework.utils.CoreEntityUtils;
 import xxgamehelper.framework.utils.FileTools;
+import xxgamehelper.framework.utils.StringTools;
 
 /***
  * The web client of game helper.
@@ -156,6 +157,17 @@ public class DefaultWebClient extends WebClient {
 		req.setEntity(CoreEntityUtils.generateEntity(
 				formParams));
 		return saveRequestToFile(host, req, this.messenger.getWorkPath(), fileName);
+	}
+	
+	public boolean downloadFile(String src, String filePath) {
+		String saveName = src.substring(src.lastIndexOf('/')+1);
+		return this.downloadFile(src, filePath, saveName);
+	}
+
+	@Override
+	public boolean downloadFile(String src, String filePath, String fileName) {
+		HttpHost picHost = new HttpHost(StringTools.sortString(src, "//", '/'));
+		return this.doGet(picHost, src, null, filePath, fileName);
 	}
 
 }

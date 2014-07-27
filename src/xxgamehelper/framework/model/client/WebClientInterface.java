@@ -73,6 +73,23 @@ public interface WebClientInterface {
 	public void useProxy(String address, int port);
 	
 	/***
+	 * Use Get method to download a file.
+	 * @param src File URL
+	 * @param filePath The directory to save the file
+	 * @param fileName The saved file name
+	 */
+	public boolean downloadFile(String src, String filePath);
+	
+	/***
+	 * Use Get method to download a file.
+	 * @param src File URL
+	 * @param filePath The directory to save the file
+	 * @param fileName The saved file name
+	 * @return If the operation succeed, return true. Otherwise false
+	 */
+	public boolean downloadFile(String src, String filePath, String fileName);
+	
+	/***
 	 * Use GET method to obtain web content with some request headers.
 	 * @param host The server
 	 * @param actionName Remote action
