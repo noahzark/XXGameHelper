@@ -21,7 +21,7 @@ import xxgamehelper.framework.model.core.Core;
 /***
  * Some tools to operate on files.
  * @author LongFangzhou
- * @version 0.1
+ * @version 0.3
  */
 public class FileTools {
 	
@@ -113,6 +113,13 @@ public class FileTools {
 	 */
 	public static void moveFile(String from, String to, boolean deleteOld){ 
 		File dir = new File(from);
+		if (dir.isFile()) {
+			dir.renameTo(new File(to));
+			if (deleteOld) {
+				dir.delete();
+			}
+			return;
+		}
 		File[] files = dir.listFiles(); //List all files
 		if (files == null)
 			return; 
