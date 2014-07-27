@@ -85,7 +85,7 @@ public class DefaultWebClient extends WebClient {
 	}
 
 	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
-			String fileName) {
+			String filePath, String fileName) {
 		if (!fileName.contains(".")){
 			fileName += ".html";
 		}
@@ -96,8 +96,8 @@ public class DefaultWebClient extends WebClient {
 		}
 		this.lastRsp = rsp;
 		try {
-			String filePath = this.messenger.getWorkPath()	+ fileName;
-			if (FileTools.saveRspToFile(rsp, filePath)) {
+			String fileAddress = filePath + fileName;
+			if (FileTools.saveRspToFile(rsp, fileAddress)) {
 				if (this.messenger.isDebugMode())
 					this.showLastResponseSummary();
 				return true;
@@ -128,22 +128,22 @@ public class DefaultWebClient extends WebClient {
 
 	@Override
 	public boolean doGet(HttpHost host, String actionName,
-			Map<String, String> headers, String fileName) {
-		
+			Map<String, String> headers,
+			String filePath, String fileName) {
 		HttpGet req = new HttpGet(actionName);
 		this.injectHeaders(req, headers);
-		return saveRequestToFile(host, req, fileName);
+		return saveRequestToFile(host, req, filePath, fileName);
 	}
 	
 	@Override
 	public boolean doPost(HttpHost host, String actionName,
 			Map<String, String> paramsMap, Map<String, String> headers,
-			String fileName) {
+			String filePath, String fileName) {
 		HttpPost req = new HttpPost(actionName);
 		this.injectHeaders(req, headers);
 		req.setEntity(CoreEntityUtils.generateEntity(
 				this.generateFormParams(paramsMap)));
-		return saveRequestToFile(host, req, fileName);
+		return saveRequestToFile(host, req, filePath, fileName);
 	}
 	
 	@Override
@@ -155,7 +155,7 @@ public class DefaultWebClient extends WebClient {
 		this.injectHeaders(req, headers);
 		req.setEntity(CoreEntityUtils.generateEntity(
 				formParams));
-		return saveRequestToFile(host, req, fileName);
+		return saveRequestToFile(host, req, this.messenger.getWorkPath(), fileName);
 	}
 
 }

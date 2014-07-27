@@ -48,10 +48,11 @@ public interface WebClientInterface {
 	 * and save content to a file.
 	 * @param host The host
 	 * @param req The request
+	 * @param filePath The directory where to save the file
 	 * @param fileName The name of file which saves contents
 	 */
 	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
-			String fileName);
+			String filePath, String fileName);
 	
 	/***
 	 * To show status line and headers of the last response.
@@ -81,7 +82,7 @@ public interface WebClientInterface {
 	 */
 	public boolean doGet(HttpHost host, String actionName,
 			Map<String, String> headers,
-			String fileName);
+			String filePath, String fileName);
 	
 	/***
 	 * Use POST method to obtain web content with some request headers.
@@ -95,7 +96,7 @@ public interface WebClientInterface {
 	public boolean doPost(HttpHost host, String actionName,
 			Map<String, String> paramsMap,
 			Map<String, String> headers,
-			String fileName);
+			String filePath, String fileName);
 	
 	/***
 	 * Use POST method to obtain web content with some request headers.
