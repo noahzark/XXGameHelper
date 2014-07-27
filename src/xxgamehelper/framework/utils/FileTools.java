@@ -5,7 +5,11 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -153,5 +157,54 @@ public class FileTools {
         //Delete the empty directory
         return dir.delete();
     }
+	
+	/***
+	 * Unzip to specific path
+	 * @param zipPath Zip file path
+	 * @param descDir Target file path
+	 * @throws IOException
+	 */
+	public static void unZipFiles(String zipPath,String descDir)throws IOException {
+		unZipFiles(new File(zipPath), descDir);
+	}
+	
+	/***
+	 * Unzip to specific path
+	 * @param zipFile Zip file path
+	 * @param descDir Target file path
+	 * @throws IOException
+	 */
+	public static void unZipFiles(File zipFile,String descDir) throws IOException{
+		File pathFile = new File(descDir);
+		if(!pathFile.exists()){
+			pathFile.mkdirs();
+		}
+		ZipFile zip = new ZipFile(zipFile);
+		for(Enumeration<?> entries = zip.entries();
+				entries.hasMoreElements();){
+			ZipEntry entry = (ZipEntry)entries.nextElement();
+			String zipEntryName = entry.getName();
+			InputStream in = zip.getInputStream(entry);
+			String outPath = (descDir+zipEntryName).replaceAll("\\*", "/");;
+			//Create if the file path is not exist
+			File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			//Don't unzip if it's a directory
+			if(new File(outPath).isDirectory()){
+				continue;
+			}
+			
+			OutputStream out = new FileOutputStream(outPath);
+			byte[] buf1 = new byte[8192];
+			int len;
+			while((len=in.read(buf1))>0){
+				out.write(buf1,0,len);
+			}
+			in.close();
+			out.close();
+		}
+	}
 
 }
