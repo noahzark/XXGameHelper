@@ -55,7 +55,7 @@ class DownloadCore {
 		
 		Timer t = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				float timeCost = TimeTools.getCurrentTime() - startTime;
+				long timeCost = TimeTools.getCurrentTime() - startTime;
 				if (fileLength > 0) {
 					out.print((currentProgress*100/fileLength)+"% - ");
 					out.println((currentProgress*1000/timeCost/1024) + " KB/S");
@@ -87,12 +87,12 @@ class DownloadCore {
 			return -1;
 		} finally {
 			if (!quiet) {
+				t.stop();
 				out.print("100% - ");
 				out.println(currentProgress*1000/(TimeTools.getCurrentTime()-startTime)/1024 + " KB/S");
-				t.stop();
 			}
 		}
-		if (currentProgress != fileLength)
+		if (currentProgress != fileLength && fileLength > 0)
 			out.showWarning("File length is different: Recv."+ currentProgress+" Expc:"+fileLength);
 		return currentProgress;
 	}
