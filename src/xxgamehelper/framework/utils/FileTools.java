@@ -48,7 +48,7 @@ class DownloadCore {
 	 * @param quiet Don't show download process statics
 	 * @return Downloaded file length
 	 */
-	long executeDownload(boolean quiet) {
+	long executeDownload(boolean showProgress) {
 		startTime = TimeTools.getCurrentTime();
 		HttpEntity entity = rsp.getEntity();
 		fileLength = entity.getContentLength();
@@ -62,7 +62,7 @@ class DownloadCore {
 				}
 			}
 		});
-		if (!quiet)
+		if (showProgress)
 			t.start();
 		
 		try {
@@ -86,7 +86,7 @@ class DownloadCore {
 			out.showError(e);
 			return -1;
 		} finally {
-			if (!quiet) {
+			if (showProgress) {
 				t.stop();
 				out.print("100% - ");
 				out.println(currentProgress*1000/(TimeTools.getCurrentTime()-startTime)/1024 + " KB/S");
@@ -144,7 +144,7 @@ public class FileTools {
 	 * @throws IOException 
 	 */
 	public static boolean saveRspToFile(OutputInterface out, HttpResponse rsp,
-			String fileName, boolean quietMode) throws IOException{
+			String fileName, boolean showProgress) throws IOException{
 		if (rsp.getStatusLine().getStatusCode() == 302) {
 			Header[] header = rsp.getHeaders("Location");
 			if (header.length>0) {
@@ -155,7 +155,7 @@ public class FileTools {
 			}
 		} else {
 			DownloadCore core = new DownloadCore(out, rsp, fileName);
-			core.executeDownload(quietMode);
+			core.executeDownload(showProgress);
 		}
 		return true;
 	}
