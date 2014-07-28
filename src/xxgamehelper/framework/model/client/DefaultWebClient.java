@@ -98,11 +98,10 @@ public class DefaultWebClient extends WebClient {
 		this.lastRsp = rsp;
 		try {
 			String fileAddress = filePath + fileName;
-			if (FileTools.saveRspToFile(rsp, fileAddress)) {
-				if (this.messenger.isDebugMode())
-					this.showLastResponseSummary();
+			if (this.messenger.isDebugMode())
+				this.showLastResponseSummary();
+			if (FileTools.saveRspToFile(messenger, rsp, fileAddress)) 
 				return true;
-			}
 		} catch (IOException e) {
 			this.messenger.showError(e);
 		}
