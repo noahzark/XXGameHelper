@@ -143,8 +143,8 @@ public class FileTools {
 	 * @param fileName The target file
 	 * @throws IOException 
 	 */
-	public static boolean saveRspToFile(OutputInterface out,
-			HttpResponse rsp, String fileName) throws IOException{
+	public static boolean saveRspToFile(OutputInterface out, HttpResponse rsp,
+			String fileName, boolean quietMode) throws IOException{
 		if (rsp.getStatusLine().getStatusCode() == 302) {
 			Header[] header = rsp.getHeaders("Location");
 			if (header.length>0) {
@@ -155,7 +155,7 @@ public class FileTools {
 			}
 		} else {
 			DownloadCore core = new DownloadCore(out, rsp, fileName);
-			core.executeDownload(false);
+			core.executeDownload(quietMode);
 		}
 		return true;
 	}
