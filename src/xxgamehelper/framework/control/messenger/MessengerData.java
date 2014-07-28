@@ -30,6 +30,7 @@ public abstract class MessengerData extends ConfigData{
 		this.errorDumpPath = "error";
 		this.betaMode = false;
 		this.debugMode = false;
+		this.showDownloadMode = false;
 		this.helperFactory = helperFactory;
 		this.requireConfig = false;
 	}
