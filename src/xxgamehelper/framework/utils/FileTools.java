@@ -1,5 +1,7 @@
 package xxgamehelper.framework.utils;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -11,12 +13,90 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import javax.swing.Timer;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
+import xxgamehelper.framework.control.OutputInterface;
 import xxgamehelper.framework.model.core.Core;
+
+/***
+ * A class to analyze download process.
+ * @author LongFangzhou
+ */
+class DownloadCore {
+	
+	OutputInterface out;
+	HttpResponse rsp;
+	String fileAddress;
+	
+	private long currentProgress = 0;
+	private long fileLength = 0;
+	private long startTime = 0;
+	
+	DownloadCore(OutputInterface out, HttpResponse rsp, String fileAddress) {
+		this.out = out;
+		this.rsp = rsp;
+		this.fileAddress = fileAddress;
+	}
+	
+	/***
+	 * Execute the download progress.
+	 * @param quiet Don't show download process statics
+	 * @return Downloaded file length
+	 */
+	long executeDownload(boolean quiet) {
+		startTime = TimeTools.getCurrentTime();
+		HttpEntity entity = rsp.getEntity();
+		fileLength = entity.getContentLength();
+		
+		Timer t = new Timer(1000, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				float timeCost = TimeTools.getCurrentTime() - startTime;
+				if (fileLength > 0) {
+					out.print((currentProgress*100/fileLength)+"% - ");
+					out.println((currentProgress*1000/timeCost/1024) + " KB/S");
+				}
+			}
+		});
+		if (!quiet)
+			t.start();
+		
+		try {
+			if (entity != null) {
+				Header[] coding = rsp.getHeaders("Content-Encoding");
+				InputStream is = null;
+				if (coding.length>0)
+					is = new GZIPInputStream(entity.getContent());
+				else
+					is = entity.getContent();
+				FileOutputStream fos = new FileOutputStream(new File(fileAddress));
+				byte[] b = new byte[Core.BUFFERSIZE];
+				int len = 0;
+				while((len=is.read(b))!=-1) {
+					fos.write(b,0,len);
+					currentProgress += len;
+				}
+				fos.close();
+			}
+		} catch (IOException e) {
+			out.showError(e);
+			return -1;
+		} finally {
+			if (!quiet) {
+				out.print("100% - ");
+				out.println(currentProgress*1000/(TimeTools.getCurrentTime()-startTime)/1024 + " KB/S");
+				t.stop();
+			}
+		}
+		if (currentProgress != fileLength)
+			out.showWarning("File length is different: Recv."+ currentProgress+" Expc:"+fileLength);
+		return currentProgress;
+	}
+}
 
 /***
  * Some tools to operate on files.
@@ -63,7 +143,8 @@ public class FileTools {
 	 * @param fileName The target file
 	 * @throws IOException 
 	 */
-	public static boolean saveRspToFile(HttpResponse rsp, String fileName) throws IOException{
+	public static boolean saveRspToFile(OutputInterface out,
+			HttpResponse rsp, String fileName) throws IOException{
 		if (rsp.getStatusLine().getStatusCode() == 302) {
 			Header[] header = rsp.getHeaders("Location");
 			if (header.length>0) {
@@ -73,21 +154,8 @@ public class FileTools {
 				EntityUtils.consume(entity);
 			}
 		} else {
-			HttpEntity entity = rsp.getEntity();
-			if (entity != null) {
-				Header[] coding = rsp.getHeaders("Content-Encoding");
-				InputStream is = null;
-				if (coding.length>0)
-					is = new GZIPInputStream(entity.getContent());
-				else
-					is = entity.getContent();
-				FileOutputStream fos = new FileOutputStream(new File(fileName));
-				byte[] b = new byte[Core.BUFFERSIZE];
-				int len = 0;
-				while((len=is.read(b))!=-1)
-					fos.write(b,0,len);
-				fos.close();
-			}
+			DownloadCore core = new DownloadCore(out, rsp, fileName);
+			core.executeDownload(false);
 		}
 		return true;
 	}
