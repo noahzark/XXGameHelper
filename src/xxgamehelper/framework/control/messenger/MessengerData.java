@@ -165,6 +165,23 @@ public abstract class MessengerData extends ConfigData{
 	public void setDebugMode(boolean debugMode) {
 		this.debugMode = debugMode;
 	}
+
+	/***
+	 * Show download progress.
+	 */
+	private boolean showDownloadMode;
+	
+	/***
+	 * Get wheter the client needs to show download progress.
+	 * @return The switch
+	 */
+	public boolean isShowDownloadMode() {
+		return showDownloadMode;
+	}
+
+	public void setShowDownloadMode(boolean showDownloadMode) {
+		this.showDownloadMode = showDownloadMode;
+	}
 	
 	protected Thread helperThread;
 	
