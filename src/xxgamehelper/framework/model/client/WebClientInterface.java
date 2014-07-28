@@ -50,6 +50,7 @@ public interface WebClientInterface {
 	 * @param req The request
 	 * @param filePath The directory where to save the file
 	 * @param fileName The name of file which saves contents
+	 * @return Wheter the operation is successful or not.
 	 */
 	public boolean saveRequestToFile(HttpHost host, HttpRequestBase req,
 			String filePath, String fileName);
