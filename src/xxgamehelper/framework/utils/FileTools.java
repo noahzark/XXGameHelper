@@ -34,6 +34,7 @@ class DownloadCore {
 	String fileAddress;
 	
 	private long currentProgress = 0;
+	private long lastSecondProgress = 0;
 	private long fileLength = 0;
 	private long startTime = 0;
 	
@@ -56,10 +57,15 @@ class DownloadCore {
 		Timer t = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				long timeCost = TimeTools.getCurrentTime() - startTime;
+				long lastSecondSpeed = currentProgress-lastSecondProgress;
+				lastSecondProgress = currentProgress;
 				if (fileLength > 0) {
 					out.print((currentProgress*100/fileLength)+"% - ");
-					out.print((currentProgress*1000/timeCost/1024) + " KB/S - ");
-					out.println((fileLength-currentProgress)/(currentProgress*1000/timeCost) + "S left.");
+					out.print("Avg." + (currentProgress*1000/timeCost/1024) + " KB/S - ");
+					out.print("Lst." + (lastSecondSpeed/1024) + " KB/S - ");
+					if (lastSecondSpeed==0)
+						lastSecondSpeed = 1;
+					out.println((fileLength-currentProgress)/lastSecondSpeed + "S left.");
 				}
 			}
 		});
