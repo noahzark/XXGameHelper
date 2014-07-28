@@ -58,7 +58,8 @@ class DownloadCore {
 				long timeCost = TimeTools.getCurrentTime() - startTime;
 				if (fileLength > 0) {
 					out.print((currentProgress*100/fileLength)+"% - ");
-					out.println((currentProgress*1000/timeCost/1024) + " KB/S");
+					out.print((currentProgress*1000/timeCost/1024) + " KB/S - ");
+					out.println((fileLength-currentProgress)/(currentProgress*1000/timeCost) + "S left.");
 				}
 			}
 		});
