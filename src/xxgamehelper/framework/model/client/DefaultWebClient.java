@@ -100,7 +100,7 @@ public class DefaultWebClient extends WebClient {
 			String fileAddress = filePath + fileName;
 			if (this.messenger.isDebugMode())
 				this.showLastResponseSummary();
-			if (FileTools.saveRspToFile(messenger, rsp, fileAddress)) 
+			if (FileTools.saveRspToFile(messenger, rsp, fileAddress, !messenger.isShowDownloadMode())) 
 				return true;
 		} catch (IOException e) {
 			this.messenger.showError(e);
