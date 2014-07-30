@@ -62,10 +62,12 @@ public class DefaultWebClient extends WebClient {
 	@Override
 	public List<NameValuePair> generateFormParams(Map<String, String> paramsMap) {
 		List<NameValuePair> formParams = new ArrayList<NameValuePair>();
-		Set<Entry<String, String>> set = paramsMap.entrySet();
-		for (Entry<String, String> entry : set) {
-			formParams.add(new BasicNameValuePair(
-					entry.getKey(), entry.getValue()));
+		if (paramsMap!=null) {
+			Set<Entry<String, String>> set = paramsMap.entrySet();
+			for (Entry<String, String> entry : set) {
+				formParams.add(new BasicNameValuePair(
+						entry.getKey(), entry.getValue()));
+			}
 		}
 		return formParams;
 	}
