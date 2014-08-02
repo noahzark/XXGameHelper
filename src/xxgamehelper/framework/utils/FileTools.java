@@ -2,11 +2,14 @@ package xxgamehelper.framework.utils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
@@ -287,6 +290,44 @@ public class FileTools {
 			in.close();
 			out.close();
 		}
+	}
+	
+	/***
+	 * Unpack an rar file
+	 * @param rarFilePath
+	 * @param exportPath
+	 * @param rarFileName
+	 * @param password
+	 * @return 0 If succeed
+	 */
+	public static int unRarFiles(String rarFilePath, String exportPath,
+			String rarFileName,String password) {   
+		try {   
+			Runtime run = Runtime.getRuntime();
+			String cmd = "unrar x " + "-p"+ password
+					+ " " + rarFilePath + "/" + rarFileName
+					+ " " + exportPath;
+			System.out.println(cmd);
+			Process p = run.exec(cmd);
+			BufferedInputStream in = new BufferedInputStream(p.getInputStream());
+			BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
+			String lineStr = null;
+			while ((lineStr = inBr.readLine()) != null) {
+				System.out.println(lineStr);
+				if (lineStr.contains("没有可提取的文件"))
+					return 1;
+			}
+			//Check execution
+			if (p.waitFor() != 0) {
+				// p.exitValue()==0 exit normally
+				if (p.exitValue() == 1)
+					return 1;
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 1;
+		}
+		return 0;//success
 	}
 
 }
