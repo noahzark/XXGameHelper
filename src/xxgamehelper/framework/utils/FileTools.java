@@ -305,8 +305,8 @@ public class FileTools {
 		try {   
 			Runtime run = Runtime.getRuntime();
 			String cmd = "unrar x " + "-p"+ password
-					+ " " + rarFilePath + "/" + rarFileName
-					+ " " + exportPath;
+					+ " \"" + rarFilePath + "/" + rarFileName + "\""
+					+ " \"" + exportPath + "\"";
 			System.out.println(cmd);
 			Process p = run.exec(cmd);
 			BufferedInputStream in = new BufferedInputStream(p.getInputStream());
