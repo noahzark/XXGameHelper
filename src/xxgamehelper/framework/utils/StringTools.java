@@ -107,7 +107,7 @@ public class StringTools {
 	 */
 	public static String sortString(String s,String front,char back){
 		StringBuffer sb = new StringBuffer();
-		int i;
+		int i=0;
 		if (s == null)
 			return null;
 		for (i=0;i<s.length();i++){
@@ -115,6 +115,8 @@ public class StringTools {
 			if (sb.toString().contains(front))
 				break;
 		}
+		if (!s.contains(front))
+			i=0;
 		sb = new StringBuffer();
 		for (i++;i<s.length();i++){
 			if (s.charAt(i)==back)
