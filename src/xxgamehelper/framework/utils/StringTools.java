@@ -116,7 +116,7 @@ public class StringTools {
 				break;
 		}
 		if (!s.contains(front))
-			i=0;
+			i=-1;
 		sb = new StringBuffer();
 		for (i++;i<s.length();i++){
 			if (s.charAt(i)==back)
