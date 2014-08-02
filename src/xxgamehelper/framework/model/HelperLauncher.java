@@ -23,7 +23,7 @@ public class HelperLauncher {
 	 * @param factory The helper factory
 	 * @return The helper thread
 	 */
-	public static void launch(Messenger messenger) {
+	public static void launchWithoutCheck(Messenger messenger) {
 		if (logger.isInfoEnabled())
 		logger.info("Initialize the helper.");
 		FileTools.createDirectory(messenger.getWorkPath());
@@ -49,7 +49,7 @@ public class HelperLauncher {
 		logger.info("Try to launch helper with a checker per " + checkInterval + " seconds.");
 		messenger.releaseHelperThread();
 		while (true){
-			HelperLauncher.launch(messenger);
+			HelperLauncher.launchWithoutCheck(messenger);
 			long verifyToken = 0L;
 			try {
 				do {
