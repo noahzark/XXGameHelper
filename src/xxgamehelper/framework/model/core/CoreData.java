@@ -48,7 +48,7 @@ public abstract class CoreData {
 	 * @param address
 	 */
 	public void setServer(String address) {
-		this.server = new HttpHost(address, 80, "http");
+		this.server = new HttpHost(address);
 	}
 
 	/***
