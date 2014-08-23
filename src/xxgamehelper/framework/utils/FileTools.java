@@ -51,8 +51,9 @@ class DownloadCore {
 	 * Execute the download progress.
 	 * @param quiet Don't show download process statics
 	 * @return Downloaded file length
+	 * @throws IOException 
 	 */
-	long executeDownload(boolean showProgress) {
+	long executeDownload(boolean showProgress) throws IOException {
 		startTime = TimeTools.getCurrentTime();
 		HttpEntity entity = rsp.getEntity();
 		fileLength = entity.getContentLength();
@@ -101,6 +102,7 @@ class DownloadCore {
 				out.print("100% - ");
 				out.println(currentProgress*1000/(TimeTools.getCurrentTime()-startTime)/1024 + " KB/S");
 			}
+			EntityUtils.consume(entity);
 		}
 		if (currentProgress != fileLength && fileLength > 0)
 			out.showWarning("File length is different: Recv."+ currentProgress+" Expc:"+fileLength);
