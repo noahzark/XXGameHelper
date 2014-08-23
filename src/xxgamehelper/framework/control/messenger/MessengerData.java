@@ -15,21 +15,28 @@ public abstract class MessengerData extends ConfigData{
 	/***
 	 * Default messenger data constructor with some initial values.
 	 */
-	public MessengerData(String homeDirectory, HelperFactory helperFactory) {
+	public MessengerData(HelperFactory helperFactory) {
 		super();
-		this.dataPath = homeDirectory + "/XXGameHelper/";
+		if (this.loadConfig(this.getAPPName()+".xml"))
+			;
+		else {
+			this.homePath = "./";
+			this.betaMode = false;
+			this.debugMode = false;
+		}
+		
+		this.dataPath = homePath + "XXGameHelper/";
+		this.workPath = "work";
+		this.errorDumpPath = "error";
+		
 		File workDir = new File(dataPath);
 		if (!workDir.exists())
 			workDir.mkdirs();
 		else
 			if (!workDir.isDirectory())
 				System.out.println("Work Directory error.");
+
 		
-		this.homePath = homeDirectory + "/";
-		this.workPath = "work";
-		this.errorDumpPath = "error";
-		this.betaMode = false;
-		this.debugMode = false;
 		this.showDownloadMode = false;
 		this.helperFactory = helperFactory;
 		this.requireConfig = false;
@@ -126,6 +133,7 @@ public abstract class MessengerData extends ConfigData{
 		helperConfig = ConfigManager.loadConfig(
 				homePath + configFileName, this.getAPPName());
 		if (helperConfig!=null) {
+			this.homePath = "./";
 			setDebugMode(helperConfig.mode.isDebugMode);
 			setBetaMode(helperConfig.mode.isBetaMode);
 			return true;

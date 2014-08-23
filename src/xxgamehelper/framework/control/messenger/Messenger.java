@@ -11,8 +11,8 @@ import xxgamehelper.framework.model.HelperFactory;
  */
 public abstract class Messenger extends MessengerData implements OutputInterface, HelperOperationInterface, SearchStringInterface{
 
-	public Messenger(String homeDir, HelperFactory helperFactory) {
-		super(homeDir, helperFactory);
+	public Messenger(HelperFactory helperFactory) {
+		super(helperFactory);
 	}
 
 }
