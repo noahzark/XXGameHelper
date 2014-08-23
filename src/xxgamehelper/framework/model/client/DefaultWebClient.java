@@ -80,9 +80,14 @@ public class DefaultWebClient extends WebClient {
 		try {
 			rsp = this.execute(host, req);
 			this.lastRsp = rsp;
-		} catch (IllegalStateException | IOException e) {
+		} catch (IllegalStateException e) {
 			this.lastRsp = null;
 			this.messenger.showError(e);
+		} catch (IOException e) {
+			this.lastRsp = null;
+			this.messenger.showError(e);
+		} finally {
+//			req.releaseConnection();
 		}
 		return rsp;
 	}
