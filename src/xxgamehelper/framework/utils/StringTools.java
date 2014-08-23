@@ -100,28 +100,27 @@ public class StringTools {
 	
 	/***
 	 * To get a target string with specific pattern.
-	 * @param s The string to search
-	 * @param front The start string
+	 * @param input The string to search
+	 * @param front The start string. If you want to start from
+	 * the vary beginning, just use "" as the front attribute.
 	 * @param back The end char
-	 * @return The target string
+	 * @return Null if input string is null, Otherwise the target string
 	 */
-	public static String sortString(String s,String front,char back){
-		StringBuffer sb = new StringBuffer();
-		int i=0;
-		if (s == null)
+	public static String sortString(String input,String front,char back){
+		if (input == null)
 			return null;
-		for (i=0;i<s.length();i++){
-			sb.append(s.charAt(i));
-			if (sb.toString().contains(front))
+		if (!input.contains(front))
+			return null;
+		
+		int pointer=0;
+		if (input.length()!=0)
+			pointer = input.indexOf(front) + front.length();
+		
+		StringBuffer sb = new StringBuffer();
+		for (;pointer<input.length();pointer++){
+			if (input.charAt(pointer)==back)
 				break;
-		}
-		if (!s.contains(front))
-			i=-1;
-		sb = new StringBuffer();
-		for (i++;i<s.length();i++){
-			if (s.charAt(i)==back)
-				break;
-			sb.append(s.charAt(i));
+			sb.append(input.charAt(pointer));
 		}
 		return sb.toString();
 	}
