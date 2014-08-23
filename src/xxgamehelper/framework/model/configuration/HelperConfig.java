@@ -21,7 +21,7 @@ public final class HelperConfig {
 	/***
 	 * Helper mode configurations.
 	 */
-	public ModeConfig mode;
+	public WorkConfig mode;
 	/***
 	 * Game configurations.
 	 */

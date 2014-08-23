@@ -35,11 +35,13 @@ public class ConfigManager {
 		
 		Node modeNode = XmlTools.getChildNodeByName(
 				rootElement, "ModeConfig");
+		String workFolder = XmlTools.getChildNodeByName(modeNode, "WorkFolder")
+				.getFirstChild().getNodeValue();
 		boolean debug = XmlTools.getChildNodeByName(modeNode, "DebugMode")
 				.getFirstChild().getNodeValue().contains("rue");
 		boolean beta = XmlTools.getChildNodeByName(modeNode, "BetaMode")
 				.getFirstChild().getNodeValue().contains("rue");
-		helperConfig.mode = new ModeConfig(debug, beta);
+		helperConfig.mode = new WorkConfig(workFolder, debug, beta);
 		
 		Node gameNode = XmlTools.getChildNodeByName(
 				rootElement, "GameConfig");
