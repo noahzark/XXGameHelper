@@ -5,7 +5,7 @@
 	<xs:element name="HelperConfigs">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="ModeConfig" />
+				<xs:element ref="WorkConfig" />
 				<xs:element ref="GameConfig" />
 			</xs:sequence>
             <xs:attribute name="HelperName" type="xs:string" use="required" />
@@ -14,9 +14,10 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="ModeConfig">
+	<xs:element name="WorkConfig">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="WorkFolder" type="xs:string"/>
 				<xs:element name="DebugMode" type="xs:boolean"/>
 				<xs:element name="BetaMode" type="xs:boolean"/>
 			</xs:sequence>
