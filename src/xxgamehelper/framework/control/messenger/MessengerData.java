@@ -131,7 +131,7 @@ public abstract class MessengerData extends ConfigData{
 	
 	public boolean loadConfig(String configFileName) {
 		helperConfig = ConfigManager.loadConfig(
-				homePath + configFileName, this.getAPPName());
+				configFileName, this.getAPPName());
 		if (helperConfig!=null) {
 			this.homePath = "./";
 			setDebugMode(helperConfig.mode.isDebugMode);
