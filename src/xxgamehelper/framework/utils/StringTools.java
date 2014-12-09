@@ -1,16 +1,18 @@
 package xxgamehelper.framework.utils;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /***
  * A scanner to check a string in a file or get a string in special pattern.
  * @author LongFangzhou
- * @author 1.5
+ * @author 1.6
  */
 public class StringTools {
 	
@@ -250,5 +252,25 @@ public class StringTools {
 			}
 		}
 		return outBuffer.toString();
+	}
+	
+	/**
+	 * Read data from an input stream into a string buffer until it ends with a key
+	 * @param is The data input stream
+	 * @param key The key
+	 * @param sb The string buffer
+	 * @return Whether the input stream ends (has more data)
+	 */
+	public static boolean readUntil(InputStream is, String key, StringBuffer sb) {
+		int buf = -1;
+		try {
+			while ((buf = is.read())!=-1){
+				sb.append((char)buf);
+				if (sb.indexOf(key)>=0)
+					break;
+			}
+		} catch (IOException e) {
+		}
+		return buf != -1;
 	}
 }
