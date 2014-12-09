@@ -17,7 +17,7 @@ public abstract class MessengerData extends ConfigData{
 	 */
 	public MessengerData(HelperFactory helperFactory) {
 		super();
-		if (this.loadConfig(this.getAPPName()+".xml"))
+		if (this.requireConfig && this.loadConfig(this.getAPPName()+".xml"))
 			;
 		else {
 			this.homePath = "./";
