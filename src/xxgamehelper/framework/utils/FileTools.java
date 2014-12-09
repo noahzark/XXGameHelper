@@ -164,6 +164,7 @@ public class FileTools {
 				fos.write(header[0].getValue().getBytes());
 				HttpEntity entity = rsp.getEntity();
 				EntityUtils.consume(entity);
+				fos.close();
 			}
 		} else {
 			DownloadCore core = new DownloadCore(out, rsp, fileName);
@@ -292,6 +293,7 @@ public class FileTools {
 			in.close();
 			out.close();
 		}
+		zip.close();
 	}
 	
 	/***
