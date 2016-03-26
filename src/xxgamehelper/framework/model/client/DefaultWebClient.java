@@ -166,6 +166,7 @@ public class DefaultWebClient extends WebClient {
 	}
 	
 	public String downloadFile(String src, String filePath) {
+		//TODO Fix the bug, filter the arguments after "?"
 		String saveName = src.substring(src.lastIndexOf('/')+1);
 		return this.downloadFile(src, filePath, saveName);
 	}
