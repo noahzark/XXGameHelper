@@ -18,6 +18,12 @@ public abstract class DefaultMessenger extends Messenger {
 	
 	static Logger logger = Logger.getLogger(DefaultMessenger.class);
 	
+	public DefaultMessenger() {
+		super(null);
+		if (logger.isInfoEnabled())
+			logger.info("Default messenger initialized.");
+	}
+	
 	public DefaultMessenger(HelperFactory helperFactory) {
 		super(helperFactory);
 		if (logger.isInfoEnabled())
